@@ -1,0 +1,101 @@
+package net.archasmiel.thaumcraft.element;
+
+
+import net.archasmiel.thaumcraft.core.element.MagicElement;
+
+public class TCMagicElements {
+    public static final MagicElement AIR = new MagicElement("aer", 16777086,  1);
+    public static final MagicElement EARTH = new MagicElement("terra", 5685248, 1);
+    public static final MagicElement FIRE = new MagicElement("ignis", 16734721, 1);
+    public static final MagicElement WATER = new MagicElement("aqua", 3986684, 1);
+    public static final MagicElement ORDER = new MagicElement("ordo", 14013676, 1);
+    public static final MagicElement ENTROPY = new MagicElement("perditio", 4210752, 771);
+    public static final MagicElement VOID;
+    public static final MagicElement LIGHT;
+    public static final MagicElement WEATHER;
+    public static final MagicElement MOTION;
+    public static final MagicElement COLD;
+    public static final MagicElement CRYSTAL;
+    public static final MagicElement LIFE;
+    public static final MagicElement POISON;
+    public static final MagicElement ENERGY;
+    public static final MagicElement EXCHANGE;
+    public static final MagicElement METAL;
+    public static final MagicElement DEATH;
+    public static final MagicElement FLIGHT;
+    public static final MagicElement DARKNESS;
+    public static final MagicElement SOUL;
+    public static final MagicElement HEAL;
+    public static final MagicElement TRAVEL;
+    public static final MagicElement ELDRITCH;
+    public static final MagicElement MAGIC;
+    public static final MagicElement AURA;
+    public static final MagicElement TAINT;
+    public static final MagicElement SLIME;
+    public static final MagicElement PLANT;
+    public static final MagicElement TREE;
+    public static final MagicElement BEAST;
+    public static final MagicElement FLESH;
+    public static final MagicElement UNDEAD;
+    public static final MagicElement MIND;
+    public static final MagicElement SENSES;
+    public static final MagicElement MAN;
+    public static final MagicElement CROP;
+    public static final MagicElement MINE;
+    public static final MagicElement TOOL;
+    public static final MagicElement HARVEST;
+    public static final MagicElement WEAPON;
+    public static final MagicElement ARMOR;
+    public static final MagicElement HUNGER;
+    public static final MagicElement GREED;
+    public static final MagicElement CRAFT;
+    public static final MagicElement CLOTH;
+    public static final MagicElement MECHANISM;
+    public static final MagicElement TRAP;
+
+    static {
+        VOID = new MagicElement("vacuos", 8947848, new MagicElement[]{AIR, ENTROPY}, 771);
+        LIGHT = new MagicElement("lux", 16774755, new MagicElement[]{AIR, FIRE});
+        WEATHER = new MagicElement("tempestas", 16777215, new MagicElement[]{AIR, WATER});
+        MOTION = new MagicElement("motus", 13487348, new MagicElement[]{AIR, ORDER});
+        COLD = new MagicElement("gelum", 14811135, new MagicElement[]{FIRE, ENTROPY});
+        CRYSTAL = new MagicElement("vitreus", 8454143, new MagicElement[]{EARTH, ORDER});
+        LIFE = new MagicElement("victus", 14548997, new MagicElement[]{WATER, EARTH});
+        POISON = new MagicElement("venenum", 9039872, new MagicElement[]{WATER, ENTROPY});
+        ENERGY = new MagicElement("potentia", 12648447, new MagicElement[]{ORDER, FIRE});
+        EXCHANGE = new MagicElement("permutatio", 5735255, new MagicElement[]{ENTROPY, ORDER});
+        METAL = new MagicElement("metallum", 11908557, new MagicElement[]{EARTH, CRYSTAL});
+        DEATH = new MagicElement("mortuus", 8943496, new MagicElement[]{LIFE, ENTROPY});
+        FLIGHT = new MagicElement("volatus", 15198167, new MagicElement[]{AIR, MOTION});
+        DARKNESS = new MagicElement("tenebrae", 2236962, new MagicElement[]{VOID, LIGHT});
+        SOUL = new MagicElement("spiritus", 15461371, new MagicElement[]{LIFE, DEATH});
+        HEAL = new MagicElement("sano", 16723764, new MagicElement[]{LIFE, ORDER});
+        TRAVEL = new MagicElement("iter", 14702683, new MagicElement[]{MOTION, EARTH});
+        ELDRITCH = new MagicElement("alienis", 8409216, new MagicElement[]{VOID, DARKNESS});
+        MAGIC = new MagicElement("praecantatio", 9896128, new MagicElement[]{VOID, ENERGY});
+        AURA = new MagicElement("auram", 16761087, new MagicElement[]{MAGIC, AIR});
+        TAINT = new MagicElement("vitium", 8388736, new MagicElement[]{MAGIC, ENTROPY});
+        SLIME = new MagicElement("limus", 129024, new MagicElement[]{LIFE, WATER});
+        PLANT = new MagicElement("herba", 109568, new MagicElement[]{LIFE, EARTH});
+        TREE = new MagicElement("arbor", 8873265, new MagicElement[]{AIR, PLANT});
+        BEAST = new MagicElement("bestia", 10445833, new MagicElement[]{MOTION, LIFE});
+        FLESH = new MagicElement("corpus", 15615885, new MagicElement[]{DEATH, BEAST});
+        UNDEAD = new MagicElement("exanimis", 3817472, new MagicElement[]{MOTION, DEATH});
+        MIND = new MagicElement("cognitio", 16761523, new MagicElement[]{FIRE, SOUL});
+        SENSES = new MagicElement("sensus", 1038847, new MagicElement[]{AIR, SOUL});
+        MAN = new MagicElement("humanus", 16766912, new MagicElement[]{BEAST, MIND});
+        CROP = new MagicElement("messis", 14791537, new MagicElement[]{PLANT, MAN});
+        MINE = new MagicElement("perfodio", 14471896, new MagicElement[]{MAN, EARTH});
+        TOOL = new MagicElement("instrumentum", 4210926, new MagicElement[]{MAN, ORDER});
+        HARVEST = new MagicElement("meto", 15641986, new MagicElement[]{CROP, TOOL});
+        WEAPON = new MagicElement("telum", 12603472, new MagicElement[]{TOOL, FIRE});
+        ARMOR = new MagicElement("tutamen", 49344, new MagicElement[]{TOOL, EARTH});
+        HUNGER = new MagicElement("fames", 10093317, new MagicElement[]{LIFE, VOID});
+        GREED = new MagicElement("lucrum", 15121988, new MagicElement[]{MAN, HUNGER});
+        CRAFT = new MagicElement("fabrico", 8428928, new MagicElement[]{MAN, TOOL});
+        CLOTH = new MagicElement("pannus", 15395522, new MagicElement[]{TOOL, BEAST});
+        MECHANISM = new MagicElement("machina", 8421536, new MagicElement[]{MOTION, TOOL});
+        TRAP = new MagicElement("vinculum", 10125440, new MagicElement[]{MOTION, ENTROPY});
+    }
+    public static void registerElements() {}
+}
