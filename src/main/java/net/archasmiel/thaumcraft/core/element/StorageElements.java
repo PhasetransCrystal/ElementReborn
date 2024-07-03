@@ -114,7 +114,7 @@ public class StorageElements {
         for(int j = 0; j < list.size(); ++j) {
             CompoundTag rs = list.getCompound(j);
             if (rs.contains("key")) {
-                this.addElement(ElementsRegistry.getElement(rs.getString("key")), rs.getInt("amount"));
+                this.addElement(ElementsRegistry.getElementByName(rs.getString("key")), rs.getInt("amount"));
             }
         }
     }
@@ -126,7 +126,7 @@ public class StorageElements {
         for(int j = 0; j < list.size(); ++j) {
             CompoundTag rs = list.getCompound(j);
             if (rs.contains("key")) {
-                this.addElement(ElementsRegistry.getElement(rs.getString("key")), rs.getInt("amount"));
+                this.addElement(ElementsRegistry.getElementByName(rs.getString("key")), rs.getInt("amount"));
             }
         }
 
