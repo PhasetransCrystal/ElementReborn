@@ -1,15 +1,21 @@
 package net.archasmiel.thaumcraft.element;
 
 
+import net.archasmiel.thaumcraft.Thaumcraft;
+import net.archasmiel.thaumcraft.core.element.ElementsRegistry;
 import net.archasmiel.thaumcraft.core.element.MagicElement;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class TCMagicElements {
-    public static final MagicElement AIR = new MagicElement("aer", 16777086,  1);
-    public static final MagicElement EARTH = new MagicElement("terra", 5685248, 1);
-    public static final MagicElement FIRE = new MagicElement("ignis", 16734721, 1);
-    public static final MagicElement WATER = new MagicElement("aqua", 3986684, 1);
-    public static final MagicElement ORDER = new MagicElement("ordo", 14013676, 1);
-    public static final MagicElement ENTROPY = new MagicElement("perditio", 4210752, 771);
+
+    private static final DeferredRegister<MagicElement> elements = DeferredRegister.create(ElementsRegistry.REGISTRY_ELEMENTS, Thaumcraft.MODID);
+
+    public static final MagicElement AIR = register("aer", new MagicElement("aer", 16777086, 1));
+    public static final MagicElement EARTH = register("terra", new MagicElement("terra", 5685248, 1));
+    public static final MagicElement FIRE = register("ignis", new MagicElement("ignis", 16734721, 1));
+    public static final MagicElement WATER = register("aqua", new MagicElement("aqua", 3986684, 1));
+    public static final MagicElement ORDER = register("ordo", new MagicElement("ordo", 14013676, 1));
+    public static final MagicElement ENTROPY = register("perditio", new MagicElement("perditio", 4210752, 771));
     public static final MagicElement VOID;
     public static final MagicElement LIGHT;
     public static final MagicElement WEATHER;
@@ -54,48 +60,66 @@ public class TCMagicElements {
     public static final MagicElement TRAP;
 
     static {
-        VOID = new MagicElement("vacuos", 8947848, new MagicElement[]{AIR, ENTROPY}, 771);
-        LIGHT = new MagicElement("lux", 16774755, new MagicElement[]{AIR, FIRE});
-        WEATHER = new MagicElement("tempestas", 16777215, new MagicElement[]{AIR, WATER});
-        MOTION = new MagicElement("motus", 13487348, new MagicElement[]{AIR, ORDER});
-        COLD = new MagicElement("gelum", 14811135, new MagicElement[]{FIRE, ENTROPY});
-        CRYSTAL = new MagicElement("vitreus", 8454143, new MagicElement[]{EARTH, ORDER});
-        LIFE = new MagicElement("victus", 14548997, new MagicElement[]{WATER, EARTH});
-        POISON = new MagicElement("venenum", 9039872, new MagicElement[]{WATER, ENTROPY});
-        ENERGY = new MagicElement("potentia", 12648447, new MagicElement[]{ORDER, FIRE});
-        EXCHANGE = new MagicElement("permutatio", 5735255, new MagicElement[]{ENTROPY, ORDER});
-        METAL = new MagicElement("metallum", 11908557, new MagicElement[]{EARTH, CRYSTAL});
-        DEATH = new MagicElement("mortuus", 8943496, new MagicElement[]{LIFE, ENTROPY});
-        FLIGHT = new MagicElement("volatus", 15198167, new MagicElement[]{AIR, MOTION});
-        DARKNESS = new MagicElement("tenebrae", 2236962, new MagicElement[]{VOID, LIGHT});
-        SOUL = new MagicElement("spiritus", 15461371, new MagicElement[]{LIFE, DEATH});
-        HEAL = new MagicElement("sano", 16723764, new MagicElement[]{LIFE, ORDER});
-        TRAVEL = new MagicElement("iter", 14702683, new MagicElement[]{MOTION, EARTH});
-        ELDRITCH = new MagicElement("alienis", 8409216, new MagicElement[]{VOID, DARKNESS});
-        MAGIC = new MagicElement("praecantatio", 9896128, new MagicElement[]{VOID, ENERGY});
-        AURA = new MagicElement("auram", 16761087, new MagicElement[]{MAGIC, AIR});
-        TAINT = new MagicElement("vitium", 8388736, new MagicElement[]{MAGIC, ENTROPY});
-        SLIME = new MagicElement("limus", 129024, new MagicElement[]{LIFE, WATER});
-        PLANT = new MagicElement("herba", 109568, new MagicElement[]{LIFE, EARTH});
-        TREE = new MagicElement("arbor", 8873265, new MagicElement[]{AIR, PLANT});
-        BEAST = new MagicElement("bestia", 10445833, new MagicElement[]{MOTION, LIFE});
-        FLESH = new MagicElement("corpus", 15615885, new MagicElement[]{DEATH, BEAST});
-        UNDEAD = new MagicElement("exanimis", 3817472, new MagicElement[]{MOTION, DEATH});
-        MIND = new MagicElement("cognitio", 16761523, new MagicElement[]{FIRE, SOUL});
-        SENSES = new MagicElement("sensus", 1038847, new MagicElement[]{AIR, SOUL});
-        MAN = new MagicElement("humanus", 16766912, new MagicElement[]{BEAST, MIND});
-        CROP = new MagicElement("messis", 14791537, new MagicElement[]{PLANT, MAN});
-        MINE = new MagicElement("perfodio", 14471896, new MagicElement[]{MAN, EARTH});
-        TOOL = new MagicElement("instrumentum", 4210926, new MagicElement[]{MAN, ORDER});
-        HARVEST = new MagicElement("meto", 15641986, new MagicElement[]{CROP, TOOL});
-        WEAPON = new MagicElement("telum", 12603472, new MagicElement[]{TOOL, FIRE});
-        ARMOR = new MagicElement("tutamen", 49344, new MagicElement[]{TOOL, EARTH});
-        HUNGER = new MagicElement("fames", 10093317, new MagicElement[]{LIFE, VOID});
-        GREED = new MagicElement("lucrum", 15121988, new MagicElement[]{MAN, HUNGER});
-        CRAFT = new MagicElement("fabrico", 8428928, new MagicElement[]{MAN, TOOL});
-        CLOTH = new MagicElement("pannus", 15395522, new MagicElement[]{TOOL, BEAST});
-        MECHANISM = new MagicElement("machina", 8421536, new MagicElement[]{MOTION, TOOL});
-        TRAP = new MagicElement("vinculum", 10125440, new MagicElement[]{MOTION, ENTROPY});
+        VOID = register("vacuos", 8947848, 771, AIR, ENTROPY);
+        LIGHT = register("lux", 16774755, AIR, FIRE);
+        WEATHER = register("tempestas", 16777215, AIR, WATER);
+        MOTION = register("motus", 13487348, AIR, ORDER);
+        COLD = register("gelum", 14811135, FIRE, ENTROPY);
+        CRYSTAL = register("vitreus", 8454143, EARTH, ORDER);
+        LIFE = register("victus", 14548997, WATER, EARTH);
+        POISON = register("venenum", 9039872, WATER, ENTROPY);
+        ENERGY = register("potentia", 12648447, ORDER, FIRE);
+        EXCHANGE = register("permutatio", 5735255, ENTROPY, ORDER);
+        METAL = register("metallum", 11908557, EARTH, CRYSTAL);
+        DEATH = register("mortuus", 8943496, LIFE, ENTROPY);
+        FLIGHT = register("volatus", 15198167, AIR, MOTION);
+        DARKNESS = register("tenebrae", 2236962, VOID, LIGHT);
+        SOUL = register("spiritus", 15461371, LIFE, DEATH);
+        HEAL = register("sano", 16723764, LIFE, ORDER);
+        TRAVEL = register("iter", 14702683, MOTION, EARTH);
+        ELDRITCH = register("alienis", 8409216, VOID, DARKNESS);
+        MAGIC = register("praecantatio", 9896128, VOID, ENERGY);
+        AURA = register("auram", 16761087, MAGIC, AIR);
+        TAINT = register("vitium", 8388736, MAGIC, ENTROPY);
+        SLIME = register("limus", 129024, LIFE, WATER);
+        PLANT = register("herba", 109568, LIFE, EARTH);
+        TREE = register("arbor", 8873265, AIR, PLANT);
+        BEAST = register("bestia", 10445833, MOTION, LIFE);
+        FLESH = register("corpus", 15615885, DEATH, BEAST);
+        UNDEAD = register("exanimis", 3817472, MOTION, DEATH);
+        MIND = register("cognitio", 16761523, FIRE, SOUL);
+        SENSES = register("sensus", 1038847, AIR, SOUL);
+        MAN = register("humanus", 16766912, BEAST, MIND);
+        CROP = register("messis", 14791537, PLANT, MAN);
+        MINE = register("perfodio", 14471896, MAN, EARTH);
+        TOOL = register("instrumentum", 4210926, MAN, ORDER);
+        HARVEST = register("meto", 15641986, CROP, TOOL);
+        WEAPON = register("telum", 12603472, TOOL, FIRE);
+        ARMOR = register("tutamen", 49344, TOOL, EARTH);
+        HUNGER = register("fames", 10093317, LIFE, VOID);
+        GREED = register("lucrum", 15121988, MAN, HUNGER);
+        CRAFT = register("fabrico", 8428928, MAN, TOOL);
+        CLOTH = register("pannus", 15395522, TOOL, BEAST);
+        MECHANISM = register("machina", 8421536, MOTION, TOOL);
+        TRAP = register("vinculum", 10125440, MOTION, ENTROPY);
     }
-    public static void registerElements() {}
+
+    public static MagicElement register(String name, int color, MagicElement... components) {
+        MagicElement element = new MagicElement(name, color, components);
+        elements.register(name, () -> element);
+        return element;
+    }
+    public static MagicElement register(String name, int color, int blend, MagicElement... components) {
+        MagicElement element = new MagicElement(name, color, blend, components);
+        elements.register(name, () -> element);
+        return element;
+    }
+
+    public static MagicElement register(String name, MagicElement element) {
+        elements.register(name, () -> element);
+        return element;
+    }
+
+    public static void registerElements() {
+    }
 }

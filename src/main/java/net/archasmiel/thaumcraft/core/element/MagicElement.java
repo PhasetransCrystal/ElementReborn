@@ -6,50 +6,29 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class MagicElement {
-    private String modId = Thaumcraft.MODID;
     private final String name;
     private final ResourceLocation texture;
     private final int blend;
     private final int color;
-    private final MagicElement[] components;
+    private final Iterable<MagicElement> components;
 
-    // Auto Registering Constructor
-    public MagicElement(String name, int color, MagicElement[] components, ResourceLocation image, int blend) {
-        if (ElementsRegistry.REGISTRY_ELEMENTS.containsKey(IResourceLocation.create(name))) {
-            throw new IllegalArgumentException(name + " already registered!");
-        } else {
+    public MagicElement(String name, int color, ResourceLocation image, int blend, MagicElement... components) {
             this.name = name;
-            this.components = components;
+            this.components = List.of(components);
             this.color = color;
             this.texture = image;
             this.blend = blend;
-            ElementsRegistry.register(name, this);
-        }
     }
 
-    public MagicElement(String modId ,String name, int color, MagicElement[] components, ResourceLocation image, int blend) {
-        if (ElementsRegistry.REGISTRY_ELEMENTS.containsKey(IResourceLocation.create(modId,name))) {
-            throw new IllegalArgumentException(name + " already registered!");
-        } else {
-            this.modId = modId;
-            this.name = name;
-            this.components = components;
-            this.color = color;
-            this.texture = image;
-            this.blend = blend;
-            ElementsRegistry.register(modId, name, this);
-        }
+    public MagicElement(String name, int color, MagicElement... components) {
+        this(name, color, IResourceLocation.create("thaumcraft", "textures/aspects/" + name.toLowerCase() + ".png"), 1,components);
     }
 
-
-    public MagicElement(String name, int color, MagicElement[] components) {
-        this(name, color, components, IResourceLocation.create("thaumcraft", "textures/aspects/" + name.toLowerCase() + ".png"), 1);
-    }
-
-    public MagicElement(String name, int color, MagicElement[] components, int blend) {
-        this(name, color, components, IResourceLocation.create("thaumcraft", "textures/aspects/" + name.toLowerCase() + ".png"), blend);
+    public MagicElement(String name, int color,int blend, MagicElement... components) {
+        this(name, color,IResourceLocation.create("thaumcraft", "textures/aspects/" + name.toLowerCase() + ".png"), blend,components);
     }
 
     public MagicElement(String name, int color, int blend) {
@@ -64,17 +43,11 @@ public class MagicElement {
         return this.name;
     }
 
-    public ResourceLocation getResourceLocation() {
-        return IResourceLocation.create(this.modId,this.name);
-    }
-
-
     public Component getTranslationText() {
         return Component.translatable("tc.aspect." + this.name).withColor(this.color);
     }
 
-
-    public MagicElement[] getComponents() {
+    public Iterable<MagicElement> getComponents() {
         return this.components;
     }
 
@@ -82,13 +55,19 @@ public class MagicElement {
         return this.texture;
     }
 
-
+    public boolean equalsName(String name) {
+        return this.name.equals(name);
+    }
     public int getBlend() {
         return this.blend;
     }
 
     public boolean isPrimal() {
-        return this.getComponents() == null || this.getComponents().length != 2;
+        return this.getComponents() == null || ((Collection<MagicElement>) this.getComponents()).size() != 2;
+    }
+
+    public boolean isCompound() {
+        return !this.isPrimal();
     }
 
 }

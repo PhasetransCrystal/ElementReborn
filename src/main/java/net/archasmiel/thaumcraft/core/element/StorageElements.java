@@ -114,7 +114,7 @@ public class StorageElements {
         for(int j = 0; j < list.size(); ++j) {
             CompoundTag rs = list.getCompound(j);
             if (rs.contains("key")) {
-                this.addElement(ElementsRegistry.getMagicElement(rs.getString("key")), rs.getInt("amount"));
+                this.addElement(ElementsRegistry.getElement(rs.getString("key")), rs.getInt("amount"));
             }
         }
     }
@@ -126,7 +126,7 @@ public class StorageElements {
         for(int j = 0; j < list.size(); ++j) {
             CompoundTag rs = list.getCompound(j);
             if (rs.contains("key")) {
-                this.addElement(ElementsRegistry.getMagicElement(rs.getString("key")), rs.getInt("amount"));
+                this.addElement(ElementsRegistry.getElement(rs.getString("key")), rs.getInt("amount"));
             }
         }
 
@@ -136,7 +136,7 @@ public class StorageElements {
         ListTag list = new ListTag();
         elements.forEach((element, value) -> {
             CompoundTag n = new CompoundTag();
-            n.putString("key", element.getResourceLocation().toString());
+            n.putString("key", element.getName());
             n.putFloat("amount", value);
             list.add(n);
         });
@@ -147,7 +147,7 @@ public class StorageElements {
         ListTag list = new ListTag();
         elements.forEach((element, value) -> {
             CompoundTag n = new CompoundTag();
-            n.putString("key", element.getResourceLocation().toString());
+            n.putString("key", element.getName());
             n.putFloat("amount", value);
             list.add(n);
         });
