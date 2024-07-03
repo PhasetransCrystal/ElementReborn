@@ -2,6 +2,8 @@ package net.archasmiel.thaumcraft.core.research;
 
 import net.minecraft.world.entity.Entity;
 
+import java.util.Objects;
+
 public class ScanResult {
     public byte type = 0;
     public int id;
@@ -18,24 +20,19 @@ public class ScanResult {
     }
 
     public boolean equals(Object obj) {
-        if (obj instanceof ScanResult sr) {
-            if (this.type != sr.type) {
-                return false;
-            }
-
-            if (this.type == 1 && (this.id != sr.id || this.meta != sr.meta)) {
-                return false;
-            }
-
-            if (this.type == 2 && !this.entity.getUUID().equals(sr.entity.getUUID())) {
-                return false;
-            }
-
-            if (this.type == 3 && !this.phenomena.equals(sr.phenomena)) {
-                return false;
-            }
+        if (!(obj instanceof ScanResult sr)) {
+            return false;
         }
 
-        return true;
+        if (this.type != sr.type) {
+            return false;
+        }
+
+        return switch (this.type) {
+            case 1 -> Objects.equals(this.id, sr.id) && this.meta == sr.meta;
+            case 2 -> Objects.equals(this.entity.getUUID(), sr.entity.getUUID());
+            case 3 -> Objects.equals(this.phenomena, sr.phenomena);
+            default -> true;
+        };
     }
 }

@@ -17,7 +17,7 @@ public class MagicElement {
 
     // Auto Registering Constructor
     public MagicElement(String name, int color, MagicElement[] components, ResourceLocation image, int blend) {
-        if (ElementsRegistry.elements.getRegistry().get().containsKey(IResourceLocation.create(name))) {
+        if (ElementsRegistry.REGISTRY_ELEMENTS.containsKey(IResourceLocation.create(name))) {
             throw new IllegalArgumentException(name + " already registered!");
         } else {
             this.name = name;
@@ -30,7 +30,7 @@ public class MagicElement {
     }
 
     public MagicElement(String modId ,String name, int color, MagicElement[] components, ResourceLocation image, int blend) {
-        if (ElementsRegistry.elements.getRegistry().get().containsKey(IResourceLocation.create(modId,name))) {
+        if (ElementsRegistry.REGISTRY_ELEMENTS.containsKey(IResourceLocation.create(modId,name))) {
             throw new IllegalArgumentException(name + " already registered!");
         } else {
             this.modId = modId;
@@ -82,13 +82,6 @@ public class MagicElement {
         return this.texture;
     }
 
-    public static MagicElement getAspect(ResourceLocation resourceLocation) {
-        MagicElement element = ElementsRegistry.elements.getRegistry().get().get(resourceLocation);
-        if (element == null) {
-            throw new IllegalArgumentException("Unknown aspect: " + resourceLocation + "Because could not find it in registry");
-        }
-        return element;
-    }
 
     public int getBlend() {
         return this.blend;
@@ -98,29 +91,4 @@ public class MagicElement {
         return this.getComponents() == null || this.getComponents().length != 2;
     }
 
-    public static ArrayList<MagicElement> getPrimalMagicElements() {
-        ArrayList<MagicElement> primals = new ArrayList<>();
-        Collection<MagicElement> allMagicElements = ElementsRegistry.elements.getRegistry().get().stream().toList();
-
-        for (MagicElement magicElement : allMagicElements) {
-            if (magicElement.isPrimal()) {
-                primals.add(magicElement);
-            }
-        }
-
-        return primals;
-    }
-
-    public static ArrayList<MagicElement> getCompoundAspects() {
-        ArrayList<MagicElement> compounds = new ArrayList<>();
-        Collection<MagicElement> allMagicElements = ElementsRegistry.elements.getRegistry().get().stream().toList();
-
-        for (MagicElement magicElement : allMagicElements) {
-            if (!magicElement.isPrimal()) {
-                compounds.add(magicElement);
-            }
-        }
-
-        return compounds;
-    }
 }
