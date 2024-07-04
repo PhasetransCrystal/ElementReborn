@@ -14,6 +14,4 @@ public class ItemThaumometer extends Item {
         super(properties);
     }
 
-
-
 }

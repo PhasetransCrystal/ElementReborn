@@ -47,15 +47,16 @@ public class StorageElements {
         elements.clear();
     }
 
-    public void addElement(MagicElement element, float value) {
+    public StorageElements addElement(MagicElement element, float value) {
         if(this.containsElement(element)) {
             elements.put(element, elements.get(element) + value);
         } else {
             elements.put(element, value);
         }
+        return this;
     }
 
-    public void removeElement(MagicElement elementName, float value, boolean deleteIfZero) {
+    public StorageElements removeElement(MagicElement elementName, float value, boolean deleteIfZero) {
         if (this.containsElement(elementName)) {
             float currentValue = elements.get(elementName);
             if (currentValue - value >= 0) {
@@ -68,6 +69,7 @@ public class StorageElements {
                 }
             }
         }
+        return this;
     }
 
     public void deleteElement(MagicElement elementName) {
@@ -160,6 +162,10 @@ public class StorageElements {
             text.append(element.getName()).append(" : ").append(this.getElementValue(element)).append("\n");
         }
         return text.toString();
+    }
+
+    public static StorageElements createByElement(MagicElement element, float value) {
+        return new StorageElements(Map.of(element, value));
     }
 
 }

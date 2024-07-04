@@ -1,9 +1,13 @@
 package net.archasmiel.thaumcraft.core.element;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.util.IResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -15,11 +19,11 @@ public class MagicElement {
     private final int color;
     private final Iterable<MagicElement> components;
 
-    public MagicElement(String name, int color, ResourceLocation image, int blend, MagicElement... components) {
+    public MagicElement(String name, int color, ResourceLocation texture, int blend, MagicElement... components) {
             this.name = name;
             this.components = List.of(components);
             this.color = color;
-            this.texture = image;
+            this.texture = texture;
             this.blend = blend;
     }
 
@@ -70,4 +74,28 @@ public class MagicElement {
         return !this.isPrimal();
     }
 
+
+    @Nullable
+    public static MagicElement loadFromJson(JsonObject json) {
+        if (!MagicElement.checkJson(json)) return null;
+        String name = json.get("name").getAsString();
+        ResourceLocation texture = ResourceLocation.parse(json.get("texture").getAsString());
+        int color = json.get("color").getAsInt();
+        int blend = json.get("blend").getAsInt();
+        List<MagicElement> components = new ArrayList<>();
+        if (json.has("components")) {
+            for (JsonElement component : json.get("components").getAsJsonArray()) {
+                components.add(ElementsRegistry.getElementByName(component.getAsString()));
+            }
+        }
+        return new MagicElement(name, color, texture ,blend, components.toArray(new MagicElement[2]));
+    }
+
+    public static boolean checkJson(JsonObject json) {
+        if (!json.has("name") ||!json.has("texture") ||!json.has("color") ||!json.has("blend")) {
+            Thaumcraft.LOGGER.error("Invalid JSON for MagicElement: " + json);
+            return false;
+        }
+        return true;
+    }
 }
