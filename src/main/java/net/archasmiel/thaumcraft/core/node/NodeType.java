@@ -7,7 +7,4 @@ public enum NodeType {
     TAINTED,
     HUNGRY,
     PURE;
-
-    private NodeType() {
-    }
 }

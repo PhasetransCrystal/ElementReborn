@@ -1,12 +1,10 @@
 package net.archasmiel.thaumcraft.core.research;
 
-import net.archasmiel.thaumcraft.core.crafting.IArcaneRecipe;
+import net.archasmiel.thaumcraft.core.recipe.IArcaneRecipe;
 import net.archasmiel.thaumcraft.core.element.StorageElements;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.List;
 
 public class ResearchPage {
     public PageType type;

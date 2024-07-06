@@ -4,7 +4,4 @@ public enum NodeModifier {
     BRIGHT,
     PALE,
     FADING;
-
-    private NodeModifier() {
-    }
 }
