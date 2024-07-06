@@ -2,9 +2,9 @@ package net.archasmiel.thaumcraft.core.element;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.level.block.CraftingTableBlock;
 
 public class ElementRender {
-
     public void render(GuiGraphics gui, MagicElement element, int x, int y, int width, int height) {
         gui.blit(element.getTexture(), x, y, width, height,0,0);
     }

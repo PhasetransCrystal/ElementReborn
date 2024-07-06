@@ -1,10 +1,12 @@
 package net.archasmiel.thaumcraft.core.wands;
 
-import net.minecraft.world.item.Item;
+import net.archasmiel.thaumcraft.core.item.TCItem;
 
-public class WandRod extends Item  {
+public class WandRod extends TCItem {
 
-    public WandRod(Properties p_41383_) {
-        super(p_41383_);
+    public WandRod(TCProperties tcProperties) {
+        super(tcProperties);
     }
+
+
 }
