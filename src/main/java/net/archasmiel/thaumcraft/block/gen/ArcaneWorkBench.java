@@ -11,39 +11,36 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.CraftingTableBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ArcaneWorkBench extends BaseEntityBlock {
+public class ArcaneWorkBench extends AbstractFurnaceBlock {
+    public static final MapCodec<ArcaneWorkBench> CODEC = simpleCodec(ArcaneWorkBench::new);
+
     protected ArcaneWorkBench(Properties p_49224_) {
         super(p_49224_);
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return null;
+    protected @NotNull MapCodec<? extends AbstractFurnaceBlock> codec() {
+        return CODEC;
     }
-
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState p_52233_, Level p_52234_, BlockPos p_52235_, Player p_52236_, BlockHitResult p_52238_) {
-        if (p_52234_.isClientSide) {
-            return InteractionResult.SUCCESS;
-        } else {
-            p_52236_.openMenu(p_52233_.getMenuProvider(p_52234_, p_52235_));
-            p_52236_.awardStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
-            return InteractionResult.CONSUME;
+    protected void openContainer(Level level, BlockPos blockPos, Player player) {
+        BlockEntity blockentity = level.getBlockEntity(blockPos);
+        if (blockentity instanceof FurnaceBlockEntity) {
+            player.openMenu((MenuProvider)blockentity);
+            player.awardStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
         }
     }
-
 
     @Nullable
     @Override

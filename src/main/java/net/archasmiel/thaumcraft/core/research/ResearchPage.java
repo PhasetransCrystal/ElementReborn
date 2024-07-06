@@ -1,6 +1,5 @@
 package net.archasmiel.thaumcraft.core.research;
 
-import net.archasmiel.thaumcraft.core.recipe.IArcaneRecipe;
 import net.archasmiel.thaumcraft.core.element.StorageElements;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -41,9 +40,6 @@ public class ResearchPage {
         INFUSION_CRAFTING,
         COMPOUND_CRAFTING,
         INFUSION_ENCHANTMENT,
-        SMELTING;
-
-        PageType() {
-        }
+        SMELTING
     }
 }
