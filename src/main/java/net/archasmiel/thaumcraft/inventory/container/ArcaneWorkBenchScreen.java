@@ -33,7 +33,7 @@ public class ArcaneWorkBenchScreen extends AbstractContainerScreen<ArcaneWorkBen
         int y = (this.height - 256) / 2;
         graphics.blit(TEXTURE, x, y, 0, 0, 256, 256);
 
-        ElementRender.render(graphics, TCMagicElements.AURA, 100, 0, 16, 16, TCMagicElements.AURA.getColor());
+        ElementRender.render(graphics, TCMagicElements.AURA, 100, 0, 16, 16);
     }
 
     @Override

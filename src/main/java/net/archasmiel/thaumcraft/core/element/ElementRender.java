@@ -5,11 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 
 public class ElementRender {
     public static void render(GuiGraphics gui, MagicElement element, int x, int y, int width, int height) {
-        gui.blit(element.getTexture(), x, y, width, height, 0, 0);
-    }
-
-
-    public static void render(GuiGraphics gui, MagicElement element, int x, int y, int width, int height, int color) {
+        int color = element.getColor();
         int r = (color >> 16) & 0xFF;
         int g = (color >> 8) & 0xFF;
         int b = color & 0xFF;

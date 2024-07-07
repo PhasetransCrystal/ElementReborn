@@ -1,5 +1,7 @@
 package net.archasmiel.thaumcraft.core.element;
 
+import net.minecraft.world.item.Items;
+
 import java.util.HashMap;
 
 public interface IStorageElementsAble {

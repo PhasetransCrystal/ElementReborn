@@ -2,6 +2,7 @@ package net.archasmiel.thaumcraft.core.element;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -9,14 +10,7 @@ import java.util.Map;
 public class StorageElements {
     private final Map<MagicElement,Float> elements;
 
-    private float receiveSpeed = 1.0f;
-
     public StorageElements(Map<MagicElement,Float> elements) {
-        this.elements = elements;
-    }
-
-    public StorageElements(Map<MagicElement,Float> elements,float receiveSpeed) {
-        this.receiveSpeed = receiveSpeed;
         this.elements = elements;
     }
 
@@ -75,37 +69,6 @@ public class StorageElements {
     public void deleteElement(MagicElement elementName) {
         if (this.containsElement(elementName)) {
             elements.remove(elementName);
-        }
-    }
-
-    public void setReceiveSpeed(float receiveSpeed) {
-        this.receiveSpeed = receiveSpeed;
-    }
-
-
-    // 需要一直调用的方法 一次会扣除一次目标元素
-    public void receiveElement(StorageElements other) {
-        if (other == null) {
-            return;
-        }
-
-        Iterator<MagicElement> iterator = other.getElements().iterator();
-
-        if (!iterator.hasNext()) {
-            return;
-        }
-
-        MagicElement element;
-        do {
-            element = iterator.next();
-        } while (iterator.hasNext() && other.getElementValue(element) == 0);
-
-        if (this.containsElement(element)) {
-            float remainingValue = other.getElementValue(element);
-            float amountToReceive = Math.min(remainingValue, this.receiveSpeed);
-
-            this.addElement(element, amountToReceive);
-            other.removeElement(element, amountToReceive, false);
         }
     }
 
