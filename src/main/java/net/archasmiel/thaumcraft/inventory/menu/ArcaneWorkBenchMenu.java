@@ -48,20 +48,20 @@ public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
         this.container = container;
         this.access = access;
 
-        this.addSlot(new OutputWithWandSlot(this.container, 0, 120, 20));
         for (int var6 = 0; var6 < 3; var6++) {
             for (int var7 = 0; var7 < 3; var7++) {
-                this.addSlot(new Slot(this.container, var7 + (var6 * 3) + 1, (var7 * 24), (var6 * 24) - 4));
+                this.addSlot(new Slot(this.container, var7 + var6 * 3, var7 * 24, var6 * 24 - 5));
             }
         }
+        this.addSlot(new OutputWithWandSlot(this.container, 9, 120, 20));
         this.addSlot(new WandSlot(this.container, 10, 120, -20));
         for (int var62 = 0; var62 < 3; var62++) {
             for (int var72 = 0; var72 < 9; var72++) {
-                this.addSlot(new Slot(playerInventory, var72 + (var62 * 9) + 9, (var72 * 18) - 24, 107 + (var62 * 18)));
+                this.addSlot(new Slot(playerInventory, var72 + (var62 * 9) + 9, (var72 * 18) - 24, 106 + (var62 * 18)));
             }
         }
         for (int var63 = 0; var63 < 9; var63++) {
-            this.addSlot(new Slot(playerInventory, var63, (var63 * 18) - 24, 165));
+            this.addSlot(new Slot(playerInventory, var63, (var63 * 18) - 24, 164));
         }
     }
 

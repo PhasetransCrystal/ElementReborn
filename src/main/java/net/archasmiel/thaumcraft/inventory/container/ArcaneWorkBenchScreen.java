@@ -33,7 +33,12 @@ public class ArcaneWorkBenchScreen extends AbstractContainerScreen<ArcaneWorkBen
         int y = (this.height - 256) / 2;
         graphics.blit(TEXTURE, x, y, 0, 0, 256, 256);
 
-        ElementRender.render(graphics, TCMagicElements.AURA, 100, 0, 16, 16);
+        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.First);
+        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.Second);
+        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.Third);
+        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.Forth);
+        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.Fifth);
+        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.Sixth);
     }
 
     @Override

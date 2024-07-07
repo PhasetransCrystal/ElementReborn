@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity implements Container, StackedContentsCompatible {
     public static final int WAND_ROD_SLOT = 10;
-    public static final int RESULT_SLOT = 0;
+    public static final int RESULT_SLOT = 9;
     protected NonNullList<ItemStack> items = NonNullList.withSize(11, ItemStack.EMPTY);
 
     public ArcaneWorkBenchBlockEntity(BlockPos blockPos, BlockState blockState) {
