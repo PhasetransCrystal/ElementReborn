@@ -8,7 +8,7 @@ public class ElementRender {
         gui.blit(element.getTexture(), x, y, width, height, 0, 0);
     }
 
-    public static void render(GuiGraphics gui, MagicElement element, RenderPlace place) {
+    public static void render(GuiGraphics gui, int x, int y, MagicElement element, RenderPlace place) {
         int color = element.getColor();
         int r = (color >> 16) & 0xFF;
         int g = (color >> 8) & 0xFF;
@@ -18,19 +18,20 @@ public class ElementRender {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShaderColor(r / 255.0f, g / 255.0f, b / 255.0f, place.getAlpha());
-        gui.blit(element.getTexture(), place.getX(), place.getY(), 0, 0, 16, 16, 16, 16);
+        gui.blit(element.getTexture(), x + place.getX(), y + place.getY(), 0, 0, 16, 16, 16, 16);
         RenderSystem.disableBlend();
         gui.pose().popPose();
         RenderSystem.setShaderColor(1, 1, 1, 1);
     }
 
     public enum RenderPlace {
-        First(102, 28),
-        Second(102, 86),
-        Third(149, 108),
-        Forth(196, 86),
-        Fifth(196, 28),
-        Sixth(149, 6);
+        First(16, 35),
+        Second(64, 13),
+        Third(112, 35),
+        Forth(112, 94),
+        Fifth(64, 116),
+        Sixth(16, 94);
+
         private static final long INTERVAL = 120;
         private final int x, y;
 

@@ -33,12 +33,15 @@ public class ArcaneWorkBenchScreen extends AbstractContainerScreen<ArcaneWorkBen
         int y = (this.height - 256) / 2;
         graphics.blit(TEXTURE, x, y, 0, 0, 256, 256);
 
-        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.First);
-        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.Second);
-        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.Third);
-        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.Forth);
-        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.Fifth);
-        ElementRender.render(graphics, TCMagicElements.AURA, ElementRender.RenderPlace.Sixth);
+
+        if (!this.getMenu().isDefaultCraftingRecipe() && !this.getMenu().hasEnoughVis()){
+            ElementRender.render(graphics, x, y ,TCMagicElements.EARTH, ElementRender.RenderPlace.First);
+            ElementRender.render(graphics, x, y ,TCMagicElements.AIR, ElementRender.RenderPlace.Second);
+            ElementRender.render(graphics, x, y ,TCMagicElements.ENTROPY, ElementRender.RenderPlace.Third);
+            ElementRender.render(graphics, x, y ,TCMagicElements.ORDER, ElementRender.RenderPlace.Forth);
+            ElementRender.render(graphics, x, y ,TCMagicElements.WATER, ElementRender.RenderPlace.Fifth);
+            ElementRender.render(graphics, x, y ,TCMagicElements.FIRE, ElementRender.RenderPlace.Sixth);
+        }
     }
 
     @Override

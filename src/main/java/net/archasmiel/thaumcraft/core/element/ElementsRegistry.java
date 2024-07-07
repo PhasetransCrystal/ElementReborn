@@ -18,7 +18,6 @@ public class ElementsRegistry {
     public static final ResourceKey<Registry<MagicElement>> ELEMENTS_KEY = ResourceKey.createRegistryKey(ELEMENTS_KEY_PATH);
     public static final Registry<MagicElement> REGISTRY_ELEMENTS = new RegistryBuilder<>(ELEMENTS_KEY).sync(true).create();
 
-
     @Nullable
     public static MagicElement getElement(ResourceLocation resourceLocation) {
         return REGISTRY_ELEMENTS.get(resourceLocation);

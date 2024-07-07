@@ -1,8 +1,13 @@
 package net.archasmiel.thaumcraft.block.entity;
 
 import net.archasmiel.thaumcraft.block.TCBlockEntityRegister;
+import net.archasmiel.thaumcraft.core.element.MagicElement;
+import net.archasmiel.thaumcraft.core.element.StorageElements;
 import net.archasmiel.thaumcraft.core.recipe.ArcaneWorkBenchRecipe;
 import net.archasmiel.thaumcraft.core.recipe.TCRecipeRegister;
+import net.archasmiel.thaumcraft.core.wands.WandRod;
+import net.archasmiel.thaumcraft.data.TCDataComponentRegister;
+import net.archasmiel.thaumcraft.element.TCMagicElements;
 import net.archasmiel.thaumcraft.inventory.menu.ArcaneWorkBenchMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -31,6 +36,9 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
     public static final int RESULT_SLOT = 9;
     protected NonNullList<ItemStack> items = NonNullList.withSize(11, ItemStack.EMPTY);
     private int users = 0;
+
+    private float needCost = 0;
+    private boolean isDefaultCraftingRecipe = true;
 
     public ArcaneWorkBenchBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(TCBlockEntityRegister.ARCANE_WORKBENCH.get(), blockPos, blockState);
@@ -84,6 +92,14 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
         return items.get(slot);
     }
 
+    public @NotNull CraftingInput getCraftingInput() {
+        NonNullList<ItemStack> itemList = NonNullList.withSize(9, ItemStack.EMPTY);
+        for(int i = 0; i < 9 ; i++){
+            itemList.set(i, items.get(i));
+        }
+        return CraftingInput.of(3,3, itemList);
+    }
+
     @Override
     public void setItem(int slot, @NotNull ItemStack stack) {
         if (slot < 0 || slot >= items.size()) return;
@@ -118,15 +134,18 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
         if (level.isClientSide || entity.isNobodyUse() || entity.items.stream().allMatch(ItemStack::isEmpty)) return;
         ItemStack previous = entity.items.get(RESULT_SLOT), current = ItemStack.EMPTY;
         entity.items.set(RESULT_SLOT, ItemStack.EMPTY);
-        CraftingInput input = CraftingInput.of(3, 3, entity.items);
+        CraftingInput input = entity.getCraftingInput();
         for (RecipeHolder<CraftingRecipe> recipe : level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING))
             if (recipe.value().matches(input, level)) {
                 current = recipe.value().getResultItem(null).copy();
+                entity.isDefaultCraftingRecipe = true;
                 break;
             }
         for (RecipeHolder<ArcaneWorkBenchRecipe> recipe : level.getRecipeManager().getAllRecipesFor(TCRecipeRegister.ARCANE_WORK_BENCH))
             if (recipe.value().matches(input, level)) {
                 current = recipe.value().getResultItem(null).copy();
+                entity.needCost = recipe.value().getCost();
+                entity.isDefaultCraftingRecipe = false;
                 break;
             }
         entity.items.set(RESULT_SLOT, previous);
@@ -134,6 +153,10 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
             entity.items.set(RESULT_SLOT, current);
             entity.setChanged();
         }
+    }
+
+    public boolean isDefaultCraftingRecipe() {
+        return isDefaultCraftingRecipe;
     }
 
     public void addUsers() {
@@ -146,5 +169,21 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
 
     public boolean isNobodyUse() {
         return this.users <= 0;
+    }
+
+    public static boolean hasEnoughBaseElementVis(StorageElements storageElements , float value) {
+        for (MagicElement magicElement : TCMagicElements.DEFAULT_ELEMENTS){
+            if (storageElements.getOrDefault(magicElement) < value)
+                return false;
+        }
+        return true;
+    }
+
+    public boolean hasEnoughVis() {
+        if (this.items.get(WAND_ROD_SLOT).getItem() instanceof WandRod){
+            return hasEnoughBaseElementVis(this.items.get(WAND_ROD_SLOT).get(TCDataComponentRegister.STORAGE_ELEMENTS),this.needCost);
+        }
+
+        return false;
     }
 }

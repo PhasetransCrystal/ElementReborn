@@ -37,7 +37,7 @@ public class MagicElement {
     }
 
     public MagicElement(String name, int color, int blend) {
-        this(name, color, null, blend);
+        this(name, color, IResourceLocation.create("thaumcraft", "textures/aspects/" + name.toLowerCase(Locale.ROOT) + ".png"), blend);
     }
 
     public int getColor() {

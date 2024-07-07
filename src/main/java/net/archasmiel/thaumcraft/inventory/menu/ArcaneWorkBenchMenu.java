@@ -19,8 +19,11 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
+    public static final int WAND_ROD_SLOT = 10;
     private final Container container;
     private final RecipeType<? extends ArcaneWorkBenchRecipe> recipeType;
     private final Inventory playerInventory;
@@ -57,8 +60,8 @@ public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
                 this.addSlot(new Slot(this.container, var7 + var6 * 3, var7 * 24, var6 * 24 - 5));
             }
         }
-        this.addSlot(new OutputWithWandSlot(this.container, 9, 120, 20));
-        this.addSlot(new WandSlot(this.container, 10, 120, -20));
+        this.addSlot(new OutputWithWandSlot(this.container, 9, 120, 20 , WAND_ROD_SLOT));
+        this.addSlot(new WandSlot(this.container, WAND_ROD_SLOT, 120, -20));
         for (int var62 = 0; var62 < 3; var62++) {
             for (int var72 = 0; var72 < 9; var72++) {
                 this.addSlot(new Slot(playerInventory, var72 + (var62 * 9) + 9, (var72 * 18) - 24, 106 + (var62 * 18)));
@@ -67,6 +70,22 @@ public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
         for (int var63 = 0; var63 < 9; var63++) {
             this.addSlot(new Slot(playerInventory, var63, (var63 * 18) - 24, 164));
         }
+    }
+
+    public boolean hasEnoughVis(){
+        AtomicBoolean bl = new AtomicBoolean(false);
+        this.access.execute((level, blockPos) -> {
+            bl.set(((ArcaneWorkBenchBlockEntity) Objects.requireNonNull(level.getBlockEntity(blockPos))).hasEnoughVis());
+        });
+        return bl.get();
+    }
+
+    public boolean isDefaultCraftingRecipe(){
+        AtomicBoolean bl = new AtomicBoolean(true);
+        this.access.execute((level, blockPos) -> {
+            bl.set(((ArcaneWorkBenchBlockEntity) Objects.requireNonNull(level.getBlockEntity(blockPos))).isDefaultCraftingRecipe());
+        });
+        return bl.get();
     }
 
     @Override
