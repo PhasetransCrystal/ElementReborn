@@ -21,8 +21,8 @@ import java.util.List;
 
 public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity implements Container, StackedContentsCompatible {
     public static final int WAND_ROD_SLOT = 10;
-    public static final int RESULT_SLOT = 11;
-    protected NonNullList<ItemStack> items = NonNullList.withSize(12, ItemStack.EMPTY); // 11 slots for input + 1 for result
+    public static final int RESULT_SLOT = 0;
+    protected NonNullList<ItemStack> items = NonNullList.withSize(11, ItemStack.EMPTY);
 
     protected ArcaneWorkBenchBlockEntity(BlockEntityType<?> entityType, BlockPos blockPos, BlockState blockState) {
         super(entityType, blockPos, blockState);
