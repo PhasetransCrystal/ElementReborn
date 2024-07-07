@@ -186,4 +186,8 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
 
         return false;
     }
+
+    public float getNeedCost() {
+        return needCost;
+    }
 }
