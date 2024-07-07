@@ -8,10 +8,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class TCRecipeRegister {
-
-    private static final DeferredRegister<RecipeType<? extends Recipe<?>>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, Thaumcraft.MODID);
-    private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, Thaumcraft.MODID);
-
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, Thaumcraft.MODID);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, Thaumcraft.MODID);
 
     public static final RecipeType<ArcaneWorkBenchRecipe> ARCANE_WORK_BENCH = registerType("arcane_work_bench");
     public static final RecipeSerializer<ShapedArcaneWorkBenchRecipe> SHAPED_ARCANE_WORK_BENCH_SERIALIZER = registerSerializer("shaped_arcane_work_bench", new ShapedArcaneWorkBenchRecipe.Serializer());

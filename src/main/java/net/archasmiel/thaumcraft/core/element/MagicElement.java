@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 public class MagicElement {
     private final String name;
@@ -20,19 +21,19 @@ public class MagicElement {
     private final Iterable<MagicElement> components;
 
     public MagicElement(String name, int color, ResourceLocation texture, int blend, MagicElement... components) {
-            this.name = name;
-            this.components = List.of(components);
-            this.color = color;
-            this.texture = texture;
-            this.blend = blend;
+        this.name = name;
+        this.components = List.of(components);
+        this.color = color;
+        this.texture = texture;
+        this.blend = blend;
     }
 
     public MagicElement(String name, int color, MagicElement... components) {
-        this(name, color, IResourceLocation.create("thaumcraft", "textures/aspects/" + name.toLowerCase() + ".png"), 1,components);
+        this(name, color, IResourceLocation.create("thaumcraft", "textures/aspects/" + name.toLowerCase(Locale.ROOT) + ".png"), 1, components);
     }
 
-    public MagicElement(String name, int color,int blend, MagicElement... components) {
-        this(name, color,IResourceLocation.create("thaumcraft", "textures/aspects/" + name.toLowerCase() + ".png"), blend,components);
+    public MagicElement(String name, int color, int blend, MagicElement... components) {
+        this(name, color, IResourceLocation.create("thaumcraft", "textures/aspects/" + name.toLowerCase(Locale.ROOT) + ".png"), blend, components);
     }
 
     public MagicElement(String name, int color, int blend) {
@@ -62,6 +63,7 @@ public class MagicElement {
     public boolean equalsName(String name) {
         return this.name.equals(name);
     }
+
     public int getBlend() {
         return this.blend;
     }
@@ -88,11 +90,11 @@ public class MagicElement {
                 components.add(ElementsRegistry.getElementByName(component.getAsString()));
             }
         }
-        return new MagicElement(name, color, texture ,blend, components.toArray(new MagicElement[2]));
+        return new MagicElement(name, color, texture, blend, components.toArray(new MagicElement[2]));
     }
 
     public static boolean checkJson(JsonObject json) {
-        if (!json.has("name") ||!json.has("texture") ||!json.has("color") ||!json.has("blend")) {
+        if (!json.has("name") || !json.has("texture") || !json.has("color") || !json.has("blend")) {
             Thaumcraft.LOGGER.error("Invalid JSON for MagicElement: " + json);
             return false;
         }

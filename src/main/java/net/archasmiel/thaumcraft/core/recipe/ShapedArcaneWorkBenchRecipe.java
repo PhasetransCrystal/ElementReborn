@@ -24,7 +24,6 @@ public class ShapedArcaneWorkBenchRecipe implements ArcaneWorkBenchRecipe{
         this.cost = cost;
     }
 
-
     @Override
     public float getCost() {
         return cost;

@@ -1,0 +1,106 @@
+{
+  "itemGroup.thaumcraft.thaumcraft": "§5Thaumcraft",
+
+  "gui.thaumcraft.basics_tab":  "Basics",
+  "gui.thaumcraft.thaumaturgy_tab": "Thaumaturgy",
+  "gui.thaumcraft.alchemy_tab":  "Alchemy",
+  "gui.thaumcraft.artifice_tab": "Artifice",
+  "gui.thaumcraft.golemancy_tab":  "Golemancy",
+  "gui.thaumcraft.eldritch_tab": "Eldritch",
+
+  "advancements.journey.root.title": "§5Thaumcraft",
+  "advancements.journey.root.description": "Let's create magic stuff! But firstly craft a workbench)",
+  "advancements.journey.paper_gathering.title": "Research...",
+  "advancements.journey.paper_gathering.description": "... needs a lot of paper!",
+  "advancements.journey.scribing_tools.title": "Hours of scribing",
+  "advancements.journey.scribing_tools.description": "Gather empty bottle, feather and inc sac",
+
+  "item.thaumcraft.thaumonomicon": "§6Thaumonomicon",
+  "item.thaumcraft.thaumonomicon_cheat": "§6Thaumonomicon (cheat version)",
+  "item.thaumcraft.crimson_rites": "§6Crimson Rites",
+  "item.thaumcraft.primal_charm": "Primal Charm",
+
+  "item.thaumcraft.shard_air": "Air Shard",
+  "item.thaumcraft.shard_fire": "Fire Shard",
+  "item.thaumcraft.shard_water": "Water Shard",
+  "item.thaumcraft.shard_earth": "Earth Shard",
+  "item.thaumcraft.shard_order": "Order Shard",
+  "item.thaumcraft.shard_entropy": "Entropy Shard",
+  "item.thaumcraft.shard_balanced": "Balanced Shard",
+
+  "item.thaumcraft.amber": "Amber",
+  "item.thaumcraft.ingot_thaumium": "Thaumium Ingot",
+  "item.thaumcraft.ingot_void_metal": "Void Metal Ingot",
+  "item.thaumcraft.ingot_quicksilver": "Quicksilver",
+  "item.thaumcraft.nugget_thaumium": "Thaumium Nugget",
+  "item.thaumcraft.void_seed": "Void Seed",
+  "item.thaumcraft.nugget_void_metal": "Void Metal Nugget",
+  "item.thaumcraft.nugget_quicksilver": "Quicksilver Drop",
+
+  "item.thaumcraft.tallow": "Magical Tallow",
+  "item.thaumcraft.cloth": "Magical Cloth",
+  "item.thaumcraft.filter": "Filter",
+  "item.thaumcraft.knowledge_fragment": "Knowledge Fragment",
+  "item.thaumcraft.mirror_glass": "Mirror Glass",
+  "item.thaumcraft.taint_slime": "Taint Slime",
+  "item.thaumcraft.taint_tendril": "Taint Tendril",
+  "item.thaumcraft.salis_mundus": "Salis Mundus",
+
+
+  "item.thaumcraft.nitor": "Nitor",
+  "item.thaumcraft.alumentum": "Alumentum",
+
+  "item.thaumcraft.cap_copper": "Copper Cap",
+  "item.thaumcraft.cap_gold": "Gold Cap",
+  "item.thaumcraft.cap_iron": "Iron Cap",
+  "item.thaumcraft.cap_silver": "Charged Silver Cap",
+  "item.thaumcraft.cap_silver_inert": "Inert Silver Cap",
+  "item.thaumcraft.cap_thaumium": "Charged Thaumium Cap",
+  "item.thaumcraft.cap_thaumium_inert": "Inert Thaumium Cap",
+  "item.thaumcraft.cap_void": "Charged Void metal Cap",
+  "item.thaumcraft.cap_void_inert": "Inert Void metal Cap",
+
+  "item.thaumcraft.wand_rod_blaze": "Blazing Rod",
+  "item.thaumcraft.wand_rod_bone": "Bone Rod",
+  "item.thaumcraft.wand_rod_greatwood": "Greatwood Rod",
+  "item.thaumcraft.wand_rod_ice": "Icy Rod",
+  "item.thaumcraft.wand_rod_obsidian": "Obsidian Rod",
+  "item.thaumcraft.wand_rod_quartz": "Quartz Rod",
+  "item.thaumcraft.wand_rod_reed": "Reed Rod",
+  "item.thaumcraft.wand_rod_silverwood": "Silverwood Rod",
+
+  "item.thaumcraft.staff_rod_blaze": "Blazing Staff Core",
+  "item.thaumcraft.staff_rod_bone": "Bone Staff Core",
+  "item.thaumcraft.staff_rod_greatwood": "Greatwood Staff Core",
+  "item.thaumcraft.staff_rod_ice": "Icy Staff Core",
+  "item.thaumcraft.staff_rod_obsidian": "Obsidian Staff Core",
+  "item.thaumcraft.staff_rod_quartz": "Quartz Staff Core",
+  "item.thaumcraft.staff_rod_reed": "Reed Staff Core",
+  "item.thaumcraft.staff_rod_silverwood": "Silverwood Staff Core",
+  "item.thaumcraft.staff_rod_primal": "Staff Core of the Primal",
+
+  "item.thaumcraft.thaumium_sword": "Thaumium Sword",
+  "item.thaumcraft.thaumium_pickaxe": "Thaumium Pickaxe",
+  "item.thaumcraft.thaumium_axe": "Thaumium Axe",
+  "item.thaumcraft.thaumium_shovel": "Thaumium Shovel",
+  "item.thaumcraft.thaumium_hoe": "Thaumium Hoe",
+
+  "item.thaumcraft.voidmetal_sword": "Void metal Sword",
+  "item.thaumcraft.voidmetal_pickaxe": "Void metal Pickaxe",
+  "item.thaumcraft.voidmetal_axe": "Void metal Axe",
+  "item.thaumcraft.voidmetal_shovel": "Void metal Shovel",
+  "item.thaumcraft.voidmetal_hoe": "Void metal Hoe",
+
+  "item.thaumcraft.inkwell": "Inkwell",
+  "item.thaumcraft.label": "Label",
+  "item.thaumcraft.bottle_taint": "Bottled Taint",
+  "item.thaumcraft.coin": "Coin",
+
+
+
+  "block.thaumcraft.arcane_workbench": "Arcane Workbench",
+  "block.thaumcraft.deconstruction_table": "Deconstruction Table",
+  "block.thaumcraft.table": "Table",
+  "itemGroup.thaumcraft": "Thaumcraft",
+  "item.tooltips.shift_message": "Press shift to show more message."
+}

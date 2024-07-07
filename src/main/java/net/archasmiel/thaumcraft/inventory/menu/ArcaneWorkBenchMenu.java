@@ -1,20 +1,17 @@
 package net.archasmiel.thaumcraft.inventory.menu;
 
-import net.archasmiel.thaumcraft.block.entity.ArcaneWorkBenchBlockEntity;
 import net.archasmiel.thaumcraft.core.recipe.ArcaneWorkBenchRecipe;
 import net.archasmiel.thaumcraft.core.recipe.TCRecipeRegister;
 import net.archasmiel.thaumcraft.inventory.TCInventoryRegister;
-import net.minecraft.core.NonNullList;
+import net.archasmiel.thaumcraft.inventory.slot.OutputWithWandSlot;
+import net.archasmiel.thaumcraft.inventory.slot.WandSlot;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.CraftingTableBlock;
-import org.apache.http.client.HttpClient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,7 +21,6 @@ public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
     private final RecipeType<? extends ArcaneWorkBenchRecipe> recipeType;
     private final Inventory playerInventory;
     private final ContainerLevelAccess access;
-    private final CraftingContainer craftSlots;
     private final ResultContainer resultSlots = new ResultContainer();
 
     public ArcaneWorkBenchMenu(int p_38963_, Inventory p_38964_
@@ -32,11 +28,10 @@ public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
         this(TCInventoryRegister.ARCANE_WORKBENCH, TCRecipeRegister.ARCANE_WORK_BENCH, p_38963_, p_38964_, new SimpleContainer(11), ContainerLevelAccess.NULL);
     }
 
-    public ArcaneWorkBenchMenu(int syncId, Inventory inventory , Container container,ContainerLevelAccess access
+    public ArcaneWorkBenchMenu(int syncId, Inventory inventory, Container container, ContainerLevelAccess access
     ) {
-        this(TCInventoryRegister.ARCANE_WORKBENCH, TCRecipeRegister.ARCANE_WORK_BENCH, syncId, inventory, container,access);
+        this(TCInventoryRegister.ARCANE_WORKBENCH, TCRecipeRegister.ARCANE_WORK_BENCH, syncId, inventory, container, access);
     }
-
 
 
     public ArcaneWorkBenchMenu(
@@ -53,31 +48,20 @@ public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
         this.container = container;
         this.access = access;
 
-        NonNullList<ItemStack> items = NonNullList.withSize(11, ItemStack.EMPTY);
-
-        for (int i = 0; i < 9; i++) {
-            items.set(i, container.getItem(i));
-        }
-
-        this.craftSlots = new TransientCraftingContainer(this, 3, 3, items);
-        this.addSlot(new ResultSlot(playerInventory.player, this.craftSlots, this.resultSlots, 0, 124, 35));
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                this.addSlot(new Slot(this.craftSlots, j + i * 3, 30 + j * 18, 17 + i * 18));
+        this.addSlot(new OutputWithWandSlot(this.container, 0, 120, 19));
+        for (int var6 = 0; var6 < 3; var6++) {
+            for (int var7 = 0; var7 < 3; var7++) {
+                this.addSlot(new Slot(this.container, var7 + (var6 * 3) + 1, (var7 * 24), (var6 * 24) - 5));
             }
         }
-
-        this.addSlot(new Slot(container, 10, 124, 5));
-
-        for (int k = 0; k < 3; k++) {
-            for (int i1 = 0; i1 < 9; i1++) {
-                this.addSlot(new Slot(playerInventory, i1 + k * 9 + 9 + 1 , 8 + i1 * 18, 84 + k * 18));
+        this.addSlot(new WandSlot(this.container, 10, 120, -21));
+        for (int var62 = 0; var62 < 3; var62++) {
+            for (int var72 = 0; var72 < 9; var72++) {
+                this.addSlot(new Slot(playerInventory, var72 + (var62 * 9) + 9, (var72 * 18) - 24, 106 + (var62 * 18)));
             }
         }
-
-        for (int l = 0; l < 9; l++) {
-            this.addSlot(new Slot(playerInventory, l, 8 + l * 18 + 1, 142));
+        for (int var63 = 0; var63 < 9; var63++) {
+            this.addSlot(new Slot(playerInventory, var63, (var63 * 18) - 24, 164));
         }
     }
 
@@ -131,5 +115,11 @@ public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player p_38874_) {
         return true;
+    }
+
+    @Override
+    public void removed(Player p_38940_) {
+        super.removed(p_38940_);
+        this.container.stopOpen(p_38940_);
     }
 }

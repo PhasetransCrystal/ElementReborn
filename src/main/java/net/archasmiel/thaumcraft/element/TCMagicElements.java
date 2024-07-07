@@ -7,8 +7,7 @@ import net.archasmiel.thaumcraft.core.element.MagicElement;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class TCMagicElements {
-
-    private static final DeferredRegister<MagicElement> elements = DeferredRegister.create(ElementsRegistry.REGISTRY_ELEMENTS, Thaumcraft.MODID);
+    public static final DeferredRegister<MagicElement> ELEMENTS = DeferredRegister.create(ElementsRegistry.REGISTRY_ELEMENTS, Thaumcraft.MODID);
 
     public static final MagicElement AIR = register("aer", new MagicElement("aer", 16777086, 1));
     public static final MagicElement EARTH = register("terra", new MagicElement("terra", 5685248, 1));
@@ -106,17 +105,17 @@ public class TCMagicElements {
 
     public static MagicElement register(String name, int color, MagicElement... components) {
         MagicElement element = new MagicElement(name, color, components);
-        elements.register(name, () -> element);
+        ELEMENTS.register(name, () -> element);
         return element;
     }
     public static MagicElement register(String name, int color, int blend, MagicElement... components) {
         MagicElement element = new MagicElement(name, color, blend, components);
-        elements.register(name, () -> element);
+        ELEMENTS.register(name, () -> element);
         return element;
     }
 
     public static MagicElement register(String name, MagicElement element) {
-        elements.register(name, () -> element);
+        ELEMENTS.register(name, () -> element);
         return element;
     }
 

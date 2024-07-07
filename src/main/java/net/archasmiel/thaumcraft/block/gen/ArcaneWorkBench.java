@@ -1,31 +1,30 @@
 package net.archasmiel.thaumcraft.block.gen;
 
 import com.mojang.serialization.MapCodec;
+import net.archasmiel.thaumcraft.block.TCBlockEntityRegister;
+import net.archasmiel.thaumcraft.block.entity.ArcaneWorkBenchBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ArcaneWorkBench extends AbstractFurnaceBlock {
-    public static final MapCodec<ArcaneWorkBench> CODEC = simpleCodec(ArcaneWorkBench::new);
+    public static final MapCodec<ArcaneWorkBench> CODEC = simpleCodec(p -> new ArcaneWorkBench());
 
-    protected ArcaneWorkBench(Properties p_49224_) {
-        super(p_49224_);
+    public ArcaneWorkBench() {
+        super(Properties.of());
     }
 
     @Override
@@ -36,8 +35,8 @@ public class ArcaneWorkBench extends AbstractFurnaceBlock {
     @Override
     protected void openContainer(Level level, BlockPos blockPos, Player player) {
         BlockEntity blockentity = level.getBlockEntity(blockPos);
-        if (blockentity instanceof FurnaceBlockEntity) {
-            player.openMenu((MenuProvider)blockentity);
+        if (blockentity instanceof ArcaneWorkBenchBlockEntity entity) {
+            player.openMenu(entity);
             player.awardStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
         }
     }
@@ -45,19 +44,17 @@ public class ArcaneWorkBench extends AbstractFurnaceBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
-        return null;
+        return new ArcaneWorkBenchBlockEntity(p_153215_, p_153216_);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
-        return super.getTicker(p_153212_, p_153213_, p_153214_);
+        return createTickerHelper(p_153214_, TCBlockEntityRegister.ARCANE_WORKBENCH.get(), ArcaneWorkBenchBlockEntity::tick);
     }
 
     @Override
     protected MenuProvider getMenuProvider(BlockState p_52240_, Level p_52241_, BlockPos p_52242_) {
-        return new SimpleMenuProvider(
-                (p_52229_, p_52230_, p_52231_) -> new CraftingMenu(p_52229_, p_52230_, ContainerLevelAccess.create(p_52241_, p_52242_)), Component.translatable("container.crafting")
-        );
+        return new SimpleMenuProvider((p_52229_, p_52230_, p_52231_) -> new CraftingMenu(p_52229_, p_52230_, ContainerLevelAccess.create(p_52241_, p_52242_)), Component.translatable("container.crafting"));
     }
 }

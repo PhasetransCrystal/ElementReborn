@@ -1,0 +1,96 @@
+{
+	"textures": {
+		"0": "thaumcraft:block/table",
+		"particle": "thaumcraft:block/table"
+	},
+	"elements": [
+		{
+			"name": "top",
+			"from": [0, 12, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 8, 4, 10], "texture": "#0"},
+				"east": {"uv": [4, 8, 8, 10], "texture": "#0"},
+				"south": {"uv": [8, 8, 12, 10], "texture": "#0"},
+				"west": {"uv": [12, 8, 16, 10], "texture": "#0"},
+				"up": {"uv": [4, 0, 8.25, 8], "texture": "#0"},
+				"down": {"uv": [8.25, 0, 12, 8], "texture": "#0"}
+			}
+		},
+		{
+			"name": "bottom",
+			"from": [0, 0, 4],
+			"to": [16, 4, 12],
+			"faces": {
+				"north": {"uv": [6, 14, 10, 16], "texture": "#0"},
+				"east": {"uv": [4, 14, 6, 16], "texture": "#0"},
+				"south": {"uv": [12, 14, 16, 16], "texture": "#0"},
+				"west": {"uv": [10, 14, 12, 16], "texture": "#0"},
+				"up": {"uv": [6, 10, 10, 14], "texture": "#0"},
+				"down": {"uv": [10, 10, 14, 14], "texture": "#0"}
+			}
+		},
+		{
+			"name": "stair1",
+			"from": [10, 4, 6],
+			"to": [14, 12, 10],
+			"faces": {
+				"north": {"uv": [0, 12, 1, 16], "texture": "#0"},
+				"east": {"uv": [1, 12, 2, 16], "texture": "#0"},
+				"south": {"uv": [2, 12, 3, 16], "texture": "#0"},
+				"west": {"uv": [3, 12, 4, 16], "texture": "#0"},
+				"up": {"uv": [1, 10, 2, 12], "texture": "#0"},
+				"down": {"uv": [2, 10, 3, 12], "texture": "#0"}
+			}
+		},
+		{
+			"name": "stair2",
+			"from": [2, 4, 6],
+			"to": [6, 12, 10],
+			"faces": {
+				"north": {"uv": [0, 12, 1, 16], "texture": "#0"},
+				"east": {"uv": [1, 12, 2, 16], "texture": "#0"},
+				"south": {"uv": [2, 12, 3, 16], "texture": "#0"},
+				"west": {"uv": [3, 12, 4, 16], "texture": "#0"},
+				"up": {"uv": [1, 10, 2, 12], "texture": "#0"},
+				"down": {"uv": [2, 10, 3, 12], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_righthand": {
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"gui": {
+			"rotation": [30, 45, 0],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"head": {
+			"translation": [0, 11, 0]
+		}
+	},
+	"groups": [
+		0,
+		1,
+		{
+			"name": "stairs",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [2, 3]
+		}
+	]
+}
