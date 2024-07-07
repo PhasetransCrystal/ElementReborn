@@ -2,6 +2,7 @@ package net.archasmiel.thaumcraft.block;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.block.entity.ArcaneWorkBenchBlockEntity;
+import net.archasmiel.thaumcraft.block.entity.NodeBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -14,6 +15,8 @@ public class TCBlockEntityRegister {
     public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Thaumcraft.MODID);
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ArcaneWorkBenchBlockEntity>> ARCANE_WORKBENCH = register("arcane_workbench", () -> BlockEntityType.Builder.of(ArcaneWorkBenchBlockEntity::new, TCBlockRegister.ARCANE_WORKBENCH.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<NodeBlockEntity>> NODE = register("arcane_workbench", () -> BlockEntityType.Builder.of(NodeBlockEntity::new, TCBlockRegister.NODE.get()).build(null));
+
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> register(String name, Supplier<BlockEntityType<T>> type) {
         return REGISTRY.register(name, type);

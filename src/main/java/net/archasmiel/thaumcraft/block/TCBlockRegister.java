@@ -2,6 +2,7 @@ package net.archasmiel.thaumcraft.block;
 
 import net.archasmiel.thaumcraft.Thaumcraft;
 import net.archasmiel.thaumcraft.block.gen.ArcaneWorkBench;
+import net.archasmiel.thaumcraft.block.gen.Node;
 import net.archasmiel.thaumcraft.item.TCItemRegister;
 import net.archasmiel.thaumcraft.util.MemorizeSupplier;
 import net.minecraft.world.item.BlockItem;
@@ -16,6 +17,8 @@ public class TCBlockRegister {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Thaumcraft.MODID);
 
     public static final DeferredBlock<Block> ARCANE_WORKBENCH = register("arcane_workbench", ArcaneWorkBench::new, new Item.Properties());
+    public static final DeferredBlock<Block> NODE = register("node", Node::new, new Item.Properties());
+
 
     private static <T extends Block> DeferredBlock<T> register(String name, Supplier<T> block, Item.Properties properties) {
         final Supplier<T> newBlock = new MemorizeSupplier<>(block);

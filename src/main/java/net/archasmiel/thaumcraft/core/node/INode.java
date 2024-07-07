@@ -1,14 +1,9 @@
 package net.archasmiel.thaumcraft.core.node;
 
+import net.archasmiel.thaumcraft.core.element.IStorageElementsAble;
 import net.archasmiel.thaumcraft.core.element.MagicElement;
-import net.archasmiel.thaumcraft.core.element.StorageElements;
 
-import java.util.UUID;
-
-public interface INode {
-    UUID getUUID();
-    StorageElements getElementsBase();
-
+public interface INode extends IStorageElementsAble {
     NodeType getNodeType();
 
     void setNodeType(NodeType var1);
@@ -17,8 +12,8 @@ public interface INode {
 
     NodeModifier getNodeModifier();
 
-    int getNodeVisBase(MagicElement var1);
+    float getNodeVis(MagicElement element);
 
-    void setNodeVisBase(MagicElement var1, short var2);
+    void setNodeVis(MagicElement element, float value);
 
 }

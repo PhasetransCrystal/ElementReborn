@@ -40,7 +40,6 @@ public class Thaumcraft {
         TCRecipeRegister.RECIPE_SERIALIZERS.register(bus);
         TCMagicElements.ELEMENTS.register(bus);
         TCDataComponentRegister.REGISTRY.register(bus);
-
         NeoForge.EVENT_BUS.register(this);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);

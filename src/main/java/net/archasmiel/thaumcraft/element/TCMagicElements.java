@@ -9,53 +9,101 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class TCMagicElements {
     public static final DeferredRegister<MagicElement> ELEMENTS = DeferredRegister.create(ElementsRegistry.REGISTRY_ELEMENTS, Thaumcraft.MODID);
 
+    // 风
     public static final MagicElement AIR = register("aer", new MagicElement("aer", 16777086, 1));
+    // 地
     public static final MagicElement EARTH = register("terra", new MagicElement("terra", 5685248, 1));
+    // 火
     public static final MagicElement FIRE = register("ignis", new MagicElement("ignis", 16734721, 1));
+    // 水
     public static final MagicElement WATER = register("aqua", new MagicElement("aqua", 3986684, 1));
+    // 秩序
     public static final MagicElement ORDER = register("ordo", new MagicElement("ordo", 14013676, 1));
+    // 混沌
     public static final MagicElement ENTROPY = register("perditio", new MagicElement("perditio", 4210752, 771));
+    // 虚空
     public static final MagicElement VOID;
+    // 光明
     public static final MagicElement LIGHT;
+    // 气候
     public static final MagicElement WEATHER;
+    // 移动
     public static final MagicElement MOTION;
+    // 寒冷
     public static final MagicElement COLD;
+    // 水晶
     public static final MagicElement CRYSTAL;
+    // 生命
     public static final MagicElement LIFE;
+    // 毒药
     public static final MagicElement POISON;
+    // 能量
     public static final MagicElement ENERGY;
+    // 交换
     public static final MagicElement EXCHANGE;
+    // 金属
     public static final MagicElement METAL;
+    // 死亡
     public static final MagicElement DEATH;
+    // 飞行
     public static final MagicElement FLIGHT;
+    // 黑暗
     public static final MagicElement DARKNESS;
+    // 灵魂
     public static final MagicElement SOUL;
+    // 治疗
     public static final MagicElement HEAL;
+    // 旅行
     public static final MagicElement TRAVEL;
+    // 异域
     public static final MagicElement ELDRITCH;
+    // 魔力
     public static final MagicElement MAGIC;
+    // 灵气
     public static final MagicElement AURA;
+    // 污染
     public static final MagicElement TAINT;
+    // 史莱姆
     public static final MagicElement SLIME;
+    // 植物
     public static final MagicElement PLANT;
+    // 树木
     public static final MagicElement TREE;
+    // 野兽
     public static final MagicElement BEAST;
+    // 肉体
     public static final MagicElement FLESH;
+    // 不死
     public static final MagicElement UNDEAD;
+    // 思维
     public static final MagicElement MIND;
+    // 感官
     public static final MagicElement SENSES;
+    // 人类
     public static final MagicElement MAN;
+    // 作物
     public static final MagicElement CROP;
+    // 矿藏
     public static final MagicElement MINE;
+    // 工具
     public static final MagicElement TOOL;
+    // 收获
     public static final MagicElement HARVEST;
+    // 武器
     public static final MagicElement WEAPON;
+    // 防护
     public static final MagicElement ARMOR;
+    // 饥饿
     public static final MagicElement HUNGER;
+    // 贪婪
     public static final MagicElement GREED;
+    // 合成
     public static final MagicElement CRAFT;
+    // 布匹
     public static final MagicElement CLOTH;
+    // 机械
     public static final MagicElement MECHANISM;
+    // 陷阱
     public static final MagicElement TRAP;
     public static final MagicElement[] DEFAULT_ELEMENTS = new MagicElement[]{AIR, EARTH, FIRE, WATER, ORDER, ENTROPY};
 

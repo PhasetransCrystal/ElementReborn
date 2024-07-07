@@ -10,6 +10,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class StorageElements {
     });
     public static final StreamCodec<FriendlyByteBuf, StorageElements> STREAM_CODEC = new StreamCodec<>() {
         @Override
-        public StorageElements decode(FriendlyByteBuf p_320376_) {
+        public @NotNull StorageElements decode(FriendlyByteBuf p_320376_) {
             return new StorageElements(p_320376_.readNbt());
         }
 
@@ -72,7 +73,6 @@ public class StorageElements {
         return elements.containsKey(element);
     }
 
-
     public int size() {
         return elements.size();
     }
@@ -93,6 +93,17 @@ public class StorageElements {
             elements.put(element, value);
         }
         return this;
+    }
+
+    public StorageElements setElement(MagicElement element, float value) {
+        elements.put(element, value);
+        return this;
+    }
+
+    public void copyFrom(StorageElements other) {
+        for (Map.Entry<MagicElement, Float> entry : other.elements.entrySet()) {
+            this.addElement(entry.getKey(), entry.getValue());
+        }
     }
 
     public StorageElements removeElement(MagicElement elementName, float value, boolean deleteIfZero) {
