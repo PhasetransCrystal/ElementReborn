@@ -34,6 +34,10 @@ public class ElementsRegistry {
         return REGISTRY_ELEMENTS.stream().filter((magicElement -> magicElement.equalsName(name))).findFirst().orElse(null);
     }
 
+    public static ResourceLocation getId(MagicElement element) {
+        return REGISTRY_ELEMENTS.getKey(element);
+    }
+
     public static List<MagicElement> getPrimalElements() {
         return REGISTRY_ELEMENTS.stream().filter(MagicElement::isPrimal).toList();
     }

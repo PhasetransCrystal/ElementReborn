@@ -3,6 +3,7 @@ package net.archasmiel.thaumcraft;
 import com.mojang.logging.LogUtils;
 import net.archasmiel.thaumcraft.block.TCBlockEntityRegister;
 import net.archasmiel.thaumcraft.block.TCBlockRegister;
+import net.archasmiel.thaumcraft.data.TCDataComponentRegister;
 import net.archasmiel.thaumcraft.core.recipe.TCRecipeRegister;
 import net.archasmiel.thaumcraft.element.TCMagicElements;
 import net.archasmiel.thaumcraft.inventory.TCInventoryRegister;
@@ -38,6 +39,7 @@ public class Thaumcraft {
         TCRecipeRegister.RECIPE_TYPES.register(bus);
         TCRecipeRegister.RECIPE_SERIALIZERS.register(bus);
         TCMagicElements.ELEMENTS.register(bus);
+        TCDataComponentRegister.REGISTRY.register(bus);
 
         NeoForge.EVENT_BUS.register(this);
 

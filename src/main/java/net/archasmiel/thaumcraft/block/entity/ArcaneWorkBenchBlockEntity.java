@@ -30,6 +30,7 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
     public static final int WAND_ROD_SLOT = 10;
     public static final int RESULT_SLOT = 9;
     protected NonNullList<ItemStack> items = NonNullList.withSize(11, ItemStack.EMPTY);
+    private int users = 0;
 
     public ArcaneWorkBenchBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(TCBlockEntityRegister.ARCANE_WORKBENCH.get(), blockPos, blockState);
@@ -56,6 +57,7 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
     @NotNull
     @Override
     public AbstractContainerMenu createMenu(int syncId, @NotNull Inventory playerInventory) {
+        this.addUsers();
         return new ArcaneWorkBenchMenu(syncId, playerInventory, this, ContainerLevelAccess.create(playerInventory.player.level(), this.getBlockPos()));
     }
 
@@ -113,15 +115,36 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, ArcaneWorkBenchBlockEntity entity) {
+        if (level.isClientSide || entity.isNobodyUse() || entity.items.stream().allMatch(ItemStack::isEmpty)) return;
+        ItemStack previous = entity.items.get(RESULT_SLOT), current = ItemStack.EMPTY;
+        entity.items.set(RESULT_SLOT, ItemStack.EMPTY);
+        CraftingInput input = CraftingInput.of(3, 3, entity.items);
         for (RecipeHolder<CraftingRecipe> recipe : level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING))
-            if (recipe.value().matches(CraftingInput.of(3, 3, entity.items), level)) {
-                entity.items.set(RESULT_SLOT, recipe.value().getResultItem(null).copy());
-                entity.setChanged();
+            if (recipe.value().matches(input, level)) {
+                current = recipe.value().getResultItem(null).copy();
+                break;
             }
         for (RecipeHolder<ArcaneWorkBenchRecipe> recipe : level.getRecipeManager().getAllRecipesFor(TCRecipeRegister.ARCANE_WORK_BENCH))
-            if (recipe.value().matches(CraftingInput.of(3, 3, entity.items), level)) {
-                entity.items.set(RESULT_SLOT, recipe.value().getResultItem(null).copy());
-                entity.setChanged();
+            if (recipe.value().matches(input, level)) {
+                current = recipe.value().getResultItem(null).copy();
+                break;
             }
+        entity.items.set(RESULT_SLOT, previous);
+        if (previous.isEmpty() != current.isEmpty() || previous.getItem() != current.getItem() || previous.getCount() != current.getCount()) {
+            entity.items.set(RESULT_SLOT, current);
+            entity.setChanged();
+        }
+    }
+
+    public void addUsers() {
+        this.users++;
+    }
+
+    public void removeUsers() {
+        this.users--;
+    }
+
+    public boolean isNobodyUse() {
+        return this.users <= 0;
     }
 }

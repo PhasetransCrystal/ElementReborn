@@ -57,6 +57,7 @@ public class TCMagicElements {
     public static final MagicElement CLOTH;
     public static final MagicElement MECHANISM;
     public static final MagicElement TRAP;
+    public static final MagicElement[] DEFAULT_ELEMENTS = new MagicElement[]{AIR, EARTH, FIRE, WATER, ORDER, ENTROPY};
 
     static {
         VOID = register("vacuos", 8947848, 771, AIR, ENTROPY);
@@ -108,6 +109,7 @@ public class TCMagicElements {
         ELEMENTS.register(name, () -> element);
         return element;
     }
+
     public static MagicElement register(String name, int color, int blend, MagicElement... components) {
         MagicElement element = new MagicElement(name, color, blend, components);
         ELEMENTS.register(name, () -> element);

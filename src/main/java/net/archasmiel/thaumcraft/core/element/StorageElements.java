@@ -1,21 +1,66 @@
 package net.archasmiel.thaumcraft.core.element;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ExtraCodecs;
 
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.Map;
 
 public class StorageElements {
-    private final Map<MagicElement,Float> elements;
+    public static final Codec<StorageElements> CODEC = ExtraCodecs.JSON.comapFlatMap(x -> {
+        try {
+            Map<MagicElement, Float> map = new HashMap<>();
+            for (Map.Entry<String, JsonElement> entry : x.getAsJsonObject().asMap().entrySet())
+                map.put(ElementsRegistry.getElement(entry.getKey()), entry.getValue().getAsFloat());
+            return DataResult.success(new StorageElements(map));
+        } catch (Exception e) {
+            return DataResult.error(() -> "Cannot parse Json: " + e);
+        }
+    }, elements -> {
+        JsonObject obj = new JsonObject();
+        for (Map.Entry<MagicElement, Float> entry : elements.elements.entrySet())
+            obj.add(ElementsRegistry.getId(entry.getKey()).toString(), new JsonPrimitive(entry.getValue()));
+        return obj;
+    });
+    public static final StreamCodec<FriendlyByteBuf, StorageElements> STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        public StorageElements decode(FriendlyByteBuf p_320376_) {
+            return new StorageElements(p_320376_.readNbt());
+        }
 
-    public StorageElements(Map<MagicElement,Float> elements) {
+        @Override
+        public void encode(FriendlyByteBuf p_320158_, StorageElements p_320396_) {
+            CompoundTag tag = new CompoundTag();
+            p_320396_.writeToNBT(tag);
+            p_320158_.writeNbt(tag);
+        }
+    };
+
+    private final Map<MagicElement, Float> elements;
+
+    public StorageElements(Map<MagicElement, Float> elements) {
         this.elements = elements;
+    }
+
+    public StorageElements(CompoundTag tag) {
+        this.elements = new HashMap<>();
+        this.readFromNBT(tag);
     }
 
     public float getElementValue(MagicElement element) {
         return elements.get(element);
+    }
+
+    public float getOrDefault(MagicElement element) {
+        return elements.getOrDefault(element, 0f);
     }
 
     public Iterable<MagicElement> getElements() {
@@ -42,7 +87,7 @@ public class StorageElements {
     }
 
     public StorageElements addElement(MagicElement element, float value) {
-        if(this.containsElement(element)) {
+        if (this.containsElement(element)) {
             elements.put(element, elements.get(element) + value);
         } else {
             elements.put(element, value);
@@ -76,7 +121,7 @@ public class StorageElements {
         this.elements.clear();
         ListTag list = nbt.getList("MagicElements", 10);
 
-        for(int j = 0; j < list.size(); ++j) {
+        for (int j = 0; j < list.size(); ++j) {
             CompoundTag rs = list.getCompound(j);
             if (rs.contains("key")) {
                 this.addElement(ElementsRegistry.getElementByName(rs.getString("key")), rs.getInt("amount"));
@@ -88,7 +133,7 @@ public class StorageElements {
         this.elements.clear();
         ListTag list = nbt.getList(label, 10);
 
-        for(int j = 0; j < list.size(); ++j) {
+        for (int j = 0; j < list.size(); ++j) {
             CompoundTag rs = list.getCompound(j);
             if (rs.contains("key")) {
                 this.addElement(ElementsRegistry.getElementByName(rs.getString("key")), rs.getInt("amount"));
@@ -131,4 +176,19 @@ public class StorageElements {
         return new StorageElements(Map.of(element, value));
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof StorageElements another)) return false;
+        if (this.size() != another.size()) return false;
+        for (MagicElement element : this.getElements())
+            if (this.getElementValue(element) != another.getOrDefault(element))
+                return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.elements.hashCode();
+    }
 }

@@ -31,7 +31,7 @@ public class ElementRender {
         Forth(196, 86),
         Fifth(196, 28),
         Sixth(149, 6);
-        private static final long INTERVAL = 60;
+        private static final long INTERVAL = 120;
         private final int x, y;
 
         RenderPlace(int x, int y) {
@@ -49,9 +49,9 @@ public class ElementRender {
 
         public float getAlpha() {
             long current = System.currentTimeMillis() - INTERVAL * this.ordinal();
-            long time = current % (INTERVAL * 12);
-            float transparency = (float) time / (INTERVAL * 6);
-            return transparency <= 1 ? transparency : 2 - transparency;
+            long time = current % (INTERVAL * 6);
+            float transparency = (float) time / (INTERVAL * 6) + 0.5f;
+            return (transparency <= 1 ? transparency : 2 - transparency) - 0.25f;
         }
     }
 }

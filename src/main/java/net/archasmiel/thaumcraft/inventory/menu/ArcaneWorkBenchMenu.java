@@ -1,5 +1,6 @@
 package net.archasmiel.thaumcraft.inventory.menu;
 
+import net.archasmiel.thaumcraft.block.entity.ArcaneWorkBenchBlockEntity;
 import net.archasmiel.thaumcraft.core.recipe.ArcaneWorkBenchRecipe;
 import net.archasmiel.thaumcraft.core.recipe.TCRecipeRegister;
 import net.archasmiel.thaumcraft.inventory.TCInventoryRegister;
@@ -121,5 +122,10 @@ public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
     public void removed(Player p_38940_) {
         super.removed(p_38940_);
         this.container.stopOpen(p_38940_);
+        this.access.execute((level, blockPos) -> {
+            if (level.isClientSide) return;
+            if (level.getBlockEntity(blockPos) instanceof ArcaneWorkBenchBlockEntity entity)
+                entity.removeUsers();
+        });
     }
 }
