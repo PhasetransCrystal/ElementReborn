@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import net.archasmiel.thaumcraft.element.TCMagicElements;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -181,6 +182,12 @@ public class StorageElements {
             text.append(element.getName()).append(" : ").append(this.getElementValue(element)).append("\n");
         }
         return text.toString();
+    }
+
+    public void reduceRootElements(float vis) {
+        for (MagicElement element : TCMagicElements.DEFAULT_ELEMENTS)
+            if (this.elements.containsKey(element))
+                this.elements.put(element, this.elements.get(element) - vis);
     }
 
     public static StorageElements createByElement(MagicElement element, float value) {

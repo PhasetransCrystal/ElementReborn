@@ -1,5 +1,6 @@
 package net.archasmiel.thaumcraft.inventory.menu;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import net.archasmiel.thaumcraft.block.entity.ArcaneWorkBenchBlockEntity;
 import net.archasmiel.thaumcraft.core.recipe.ArcaneWorkBenchRecipe;
 import net.archasmiel.thaumcraft.core.recipe.TCRecipeRegister;
@@ -12,10 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingInput;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -60,31 +58,30 @@ public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
                 this.addSlot(new Slot(this.container, var7 + var6 * 3, var7 * 24, var6 * 24 - 5));
             }
         }
-        this.addSlot(new OutputWithWandSlot(this.container, 9, 120, 20 , WAND_ROD_SLOT));
         this.addSlot(new WandSlot(this.container, WAND_ROD_SLOT, 120, -20));
-        for (int var62 = 0; var62 < 3; var62++) {
-            for (int var72 = 0; var72 < 9; var72++) {
+        this.addSlot(new OutputWithWandSlot(this.container, 9, 120, 20, this));
+        for (int var62 = 0; var62 < 3; var62++)
+            for (int var72 = 0; var72 < 9; var72++)
                 this.addSlot(new Slot(playerInventory, var72 + (var62 * 9) + 9, (var72 * 18) - 24, 106 + (var62 * 18)));
-            }
-        }
-        for (int var63 = 0; var63 < 9; var63++) {
+        for (int var63 = 0; var63 < 9; var63++)
             this.addSlot(new Slot(playerInventory, var63, (var63 * 18) - 24, 164));
-        }
     }
 
-    public boolean hasEnoughVis(){
+    public boolean hasEnoughVis(Player player) {
         AtomicBoolean bl = new AtomicBoolean(false);
-        this.access.execute((level, blockPos) -> {
-            bl.set(((ArcaneWorkBenchBlockEntity) Objects.requireNonNull(level.getBlockEntity(blockPos))).hasEnoughVis());
-        });
+        this.access.execute((level, blockPos) -> bl.set(((ArcaneWorkBenchBlockEntity) Objects.requireNonNull(level.getBlockEntity(blockPos))).hasEnoughVis(player)));
         return bl.get();
     }
 
-    public boolean isDefaultCraftingRecipe(){
+    public float getDefaultVis() {
+        AtomicDouble db = new AtomicDouble(0);
+        this.access.execute((level, blockPos) -> db.set(((ArcaneWorkBenchBlockEntity) Objects.requireNonNull(level.getBlockEntity(blockPos))).getNeedCost()));
+        return db.floatValue();
+    }
+
+    public boolean isDefaultCraftingRecipe() {
         AtomicBoolean bl = new AtomicBoolean(true);
-        this.access.execute((level, blockPos) -> {
-            bl.set(((ArcaneWorkBenchBlockEntity) Objects.requireNonNull(level.getBlockEntity(blockPos))).isDefaultCraftingRecipe());
-        });
+        this.access.execute((level, blockPos) -> bl.set(((ArcaneWorkBenchBlockEntity) Objects.requireNonNull(level.getBlockEntity(blockPos))).isDefaultCraftingRecipe()));
         return bl.get();
     }
 

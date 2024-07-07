@@ -9,6 +9,10 @@ public class ElementRender {
     }
 
     public static void render(GuiGraphics gui, int x, int y, MagicElement element, RenderPlace place) {
+        render(gui, x, y, element, place, false);
+    }
+
+    public static void render(GuiGraphics gui, int x, int y, MagicElement element, RenderPlace place, boolean stable) {
         int color = element.getColor();
         int r = (color >> 16) & 0xFF;
         int g = (color >> 8) & 0xFF;
@@ -17,7 +21,7 @@ public class ElementRender {
         gui.pose().pushPose();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(r / 255.0f, g / 255.0f, b / 255.0f, place.getAlpha());
+        RenderSystem.setShaderColor(r / 255.0f, g / 255.0f, b / 255.0f, stable ? 1 : place.getAlpha());
         gui.blit(element.getTexture(), x + place.getX(), y + place.getY(), 0, 0, 16, 16, 16, 16);
         RenderSystem.disableBlend();
         gui.pose().popPose();

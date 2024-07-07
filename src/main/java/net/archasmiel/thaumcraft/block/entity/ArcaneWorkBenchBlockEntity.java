@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -94,10 +95,10 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
 
     public @NotNull CraftingInput getCraftingInput() {
         NonNullList<ItemStack> itemList = NonNullList.withSize(9, ItemStack.EMPTY);
-        for(int i = 0; i < 9 ; i++){
+        for (int i = 0; i < 9; i++) {
             itemList.set(i, items.get(i));
         }
-        return CraftingInput.of(3,3, itemList);
+        return CraftingInput.of(3, 3, itemList);
     }
 
     @Override
@@ -171,19 +172,24 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
         return this.users <= 0;
     }
 
-    public static boolean hasEnoughBaseElementVis(StorageElements storageElements , float value) {
-        for (MagicElement magicElement : TCMagicElements.DEFAULT_ELEMENTS){
+    public static float calculateVis(ItemStack stack, float origin, Player player) {
+        //TODO: 根据物品计算实际消耗
+        return origin;
+    }
+
+    public static boolean hasEnoughBaseElementVis(ItemStack stack, StorageElements storageElements, float value, Player player) {
+        value = calculateVis(stack, value, player);
+        for (MagicElement magicElement : TCMagicElements.DEFAULT_ELEMENTS) {
             if (storageElements.getOrDefault(magicElement) < value)
                 return false;
         }
         return true;
     }
 
-    public boolean hasEnoughVis() {
-        if (this.items.get(WAND_ROD_SLOT).getItem() instanceof WandRod){
-            return hasEnoughBaseElementVis(this.items.get(WAND_ROD_SLOT).get(TCDataComponentRegister.STORAGE_ELEMENTS),this.needCost);
-        }
-
+    public boolean hasEnoughVis(Player player) {
+        ItemStack stack = this.items.get(WAND_ROD_SLOT);
+        if (stack.getItem() instanceof WandRod)
+            return hasEnoughBaseElementVis(stack, this.items.get(WAND_ROD_SLOT).get(TCDataComponentRegister.STORAGE_ELEMENTS), this.needCost, player);
         return false;
     }
 
