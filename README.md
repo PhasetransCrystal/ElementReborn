@@ -1,27 +1,30 @@
 
 ---
-# Thaumcraft: Reborn | 神秘4: 重制
-# 重写:
-#### 指在尽量还原其原本内容的基础上加入一些自己认为对游戏性,或者其他方面有更好体验的改良和新增,其中包括直接将其附属模组的内容添加进本体，或者改变某些游戏细节
 
-## 版权所属
-#### Thaumcraft 的所有许可权都在原作者Azanor
+# Thaumcraft: Reborn | Thaumcraft 4: Rebirth [中文 / Chinese](README_zh.md)
+# Rewrite:
+#### The aim is to restore the original content as much as possible while incorporating improvements and additions that are believed to enhance gameplay or other aspects. This includes integrating content from its associated mods into the main body, or altering certain game details.
+
+## Copyright Ownership
+#### All rights to Thaumcraft belong to the original author, Azanor.
 [**Azanor GitHub**](https://github.com/Azanor)<br>
 [**Azanor Repos**](https://github.com/Azanor?tab=repositories)<br><br>
 
-###  项目使用的模组加载器为 NeoForge 1.21
+### The mod loader used for the project is NeoForge 1.21
 
-## ***已经完成***
-- [x] *除特殊模型的其他所有物品添加 [功能尚未实现]*
-- [x] *物品标签页*
-- [x] *奥数工作台*
-- [x] *法杖基本功能 [存储元素和物品内元素容量查看]*
-- [x] *灵气节点基本功能[法杖抽取，存取元素]*
-## ***待完成***
-- [ ] *特殊物品 [例如饰品]*
-- [ ] *待解决当前所需将会进一步规划下一步待完成事项*
+## ***Completed***
+- [x] *All items added except for special models [Functionality not yet implemented]*
+- [x] *Item Tag Page*
+- [x] *Arcane Workbench*
+- [x] *Basic Staff Functionality [Element storage and viewing the capacity of elements within items]*
+- [x] *Essence Node Basic Functionality [Staff extraction, element storage and retrieval]*
+
+## ***To Be Completed***
+- [ ] *Special Items [e.g., accessories]*
+- [ ] *To be determined, further planning for the next steps will be required*
 - [ ] *......*
-#### 许可证
-此模板在 CC0-1.0 许可证下可用,你可以随意从中学习并将其纳入您自己的项目中。
+
+#### License
+This template is available under the CC0-1.0 license, you are free to learn from it and incorporate it into your own projects.
 
 ---
