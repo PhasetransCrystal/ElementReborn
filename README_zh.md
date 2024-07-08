@@ -1,6 +1,7 @@
 
 ---
-# Thaumcraft: Reborn | 神秘4: 重制 [English](README.md)
+# Thaumcraft: Reborn | 神秘4: 重制 
+## [English](README.md)
 # 重写:
 #### 指在尽量还原其原本内容的基础上加入一些自己认为对游戏性,或者其他方面有更好体验的改良和新增,其中包括直接将其附属模组的内容添加进本体，或者改变某些游戏细节
 

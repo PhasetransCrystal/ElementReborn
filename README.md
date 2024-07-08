@@ -1,7 +1,8 @@
 
 ---
 
-# Thaumcraft: Reborn | Thaumcraft 4: Rebirth [中文 / Chinese](README_zh.md)
+# Thaumcraft: Reborn | Thaumcraft 4: Rebirth
+## [中文 / Chinese](README_zh.md)
 # Rewrite:
 #### The aim is to restore the original content as much as possible while incorporating improvements and additions that are believed to enhance gameplay or other aspects. This includes integrating content from its associated mods into the main body, or altering certain game details.
 
