@@ -14,6 +14,7 @@ import net.minecraft.util.ExtraCodecs;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StorageElements {
@@ -107,7 +108,7 @@ public class StorageElements {
         }
     }
 
-    public StorageElements removeElement(MagicElement elementName, float value, boolean deleteIfZero) {
+    public boolean removeElement(MagicElement elementName, float value, boolean deleteIfZero) {
         if (this.containsElement(elementName)) {
             float currentValue = elements.get(elementName);
             if (currentValue - value >= 0) {
@@ -119,8 +120,9 @@ public class StorageElements {
                     elements.put(elementName, 0f);
                 }
             }
+            return true;
         }
-        return this;
+        return false;
     }
 
     public void deleteElement(MagicElement elementName) {
@@ -208,5 +210,17 @@ public class StorageElements {
     @Override
     public int hashCode() {
         return this.elements.hashCode();
+    }
+
+    public List<MagicElement> getPrimalElements() {
+       return this.elements.keySet().stream().filter(MagicElement::isPrimal).toList();
+    }
+
+    public List<MagicElement> filterElements(List<MagicElement> elements, int min) {
+        return this.elements.keySet().stream().filter(elements::contains).filter(element -> this.getElementValue(element) >= min).toList();
+    }
+
+    public List<MagicElement> filterElements(List<MagicElement> elements) {
+        return this.elements.keySet().stream().filter(elements::contains).toList();
     }
 }
