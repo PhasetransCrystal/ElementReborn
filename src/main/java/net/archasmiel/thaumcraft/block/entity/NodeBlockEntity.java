@@ -14,6 +14,7 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -28,9 +29,6 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
         super(TCBlockEntityRegister.NODE.get(), p_155229_, p_155230_);
     }
 
-    public NodeBlockEntity(BlockPos p_155229_, BlockState p_155230_,NodeType type, NodeModifier modifier) {
-        super(TCBlockEntityRegister.NODE.get(), p_155229_, p_155230_);
-    }
 
     public NodeBlockEntity(BlockPos p_155229_, BlockState p_155230_, NodeType type, NodeModifier modifier, StorageElements elements) {
         super(TCBlockEntityRegister.NODE.get(), p_155229_, p_155230_);

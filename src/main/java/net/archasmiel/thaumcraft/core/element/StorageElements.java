@@ -139,7 +139,7 @@ public class StorageElements {
                 this.addElement(ElementsRegistry.getElementByName(rs.getString("key")), rs.getInt("amount"));
             }
         }
-    }
+    };
 
     public void readFromNBT(CompoundTag nbt, String label) {
         this.elements.clear();

@@ -33,7 +33,7 @@ public class ArcaneWorkBench extends AbstractFurnaceBlock {
     }
 
     @Override
-    protected void openContainer(Level level, BlockPos blockPos, Player player) {
+    protected void openContainer(Level level, @NotNull BlockPos blockPos, @NotNull Player player) {
         BlockEntity blockentity = level.getBlockEntity(blockPos);
         if (blockentity instanceof ArcaneWorkBenchBlockEntity entity) {
             player.openMenu(entity);

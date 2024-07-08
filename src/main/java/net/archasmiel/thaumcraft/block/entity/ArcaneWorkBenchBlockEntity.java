@@ -174,7 +174,6 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     public static float calculateVis(ItemStack stack, float origin, Player player) {
-        //TODO: 根据物品计算实际消耗
         return origin;
     }
 
