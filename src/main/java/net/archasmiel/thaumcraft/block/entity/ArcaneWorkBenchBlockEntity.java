@@ -12,6 +12,7 @@ import net.archasmiel.thaumcraft.inventory.menu.ArcaneWorkBenchMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
@@ -30,6 +31,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.model.obj.ObjLoader;
 import org.jetbrains.annotations.NotNull;
 
 public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity implements Container, StackedContentsCompatible {
@@ -37,7 +39,6 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
     public static final int RESULT_SLOT = 9;
     protected NonNullList<ItemStack> items = NonNullList.withSize(11, ItemStack.EMPTY);
     private int users = 0;
-
     private float needCost = 0;
     private boolean isDefaultCraftingRecipe = true;
 
@@ -178,9 +179,9 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     public static boolean hasEnoughBaseElementVis(ItemStack stack, StorageElements storageElements, float value, Player player) {
-        value = calculateVis(stack, value, player);
+        float vis = calculateVis(stack, value, player);
         for (MagicElement magicElement : TCMagicElements.DEFAULT_ELEMENTS) {
-            if (storageElements.getOrDefault(magicElement) < value)
+            if (storageElements.getOrDefault(magicElement) < vis)
                 return false;
         }
         return true;
@@ -196,4 +197,6 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
     public float getNeedCost() {
         return needCost;
     }
+
+
 }

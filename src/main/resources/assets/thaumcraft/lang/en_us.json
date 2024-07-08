@@ -102,5 +102,6 @@
   "block.thaumcraft.deconstruction_table": "Deconstruction Table",
   "block.thaumcraft.table": "Table",
   "itemGroup.thaumcraft": "Thaumcraft",
-  "item.tooltips.shift_message": "Press shift to show more message."
+  "item.tooltips.shift_message": "Press shift to show more message.",
+  "item.thaumcraft.reduction.tooltip": "Elements cost :"
 }

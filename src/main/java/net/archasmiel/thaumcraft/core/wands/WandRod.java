@@ -1,10 +1,12 @@
 package net.archasmiel.thaumcraft.core.wands;
 
+import net.archasmiel.thaumcraft.core.element.IReductionElementsAble;
 import net.archasmiel.thaumcraft.core.element.MagicElement;
 import net.archasmiel.thaumcraft.core.element.StorageElements;
 import net.archasmiel.thaumcraft.core.item.TCItem;
 import net.archasmiel.thaumcraft.data.TCDataComponentRegister;
 import net.archasmiel.thaumcraft.element.TCMagicElements;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
@@ -15,13 +17,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class WandRod extends TCItem implements IItemStorageElementsAble {
+public class WandRod extends TCItem implements IItemStorageElementsAble , IReductionElementsAble {
     private final int maxCapacity;
     private float receiveSpeed = 1.0f;
+    private float reductionTime; // example 1.0f = 100% reduction
 
-    public WandRod(TCProperties tcProperties, int maxCapacity) {
+    public WandRod(TCProperties tcProperties, int maxCapacity,float reductionTime) {
         super(tcProperties);
         this.maxCapacity = maxCapacity;
+        this.reductionTime = reductionTime;
+        this.tcProperties.tooltips.add(this.getReductionMessage());
     }
 
     public static StorageElements getElements(ItemStack stack) {
@@ -58,6 +63,10 @@ public class WandRod extends TCItem implements IItemStorageElementsAble {
         this.receiveSpeed = receiveSpeed;
     }
 
+    public void setReductionTime(float reductionTime) {
+        this.reductionTime = reductionTime;
+    }
+
     public void receiveElement(StorageElements other) {
         if (other == null) {
             return;
@@ -82,5 +91,20 @@ public class WandRod extends TCItem implements IItemStorageElementsAble {
             other.removeElement(element, amountToReceive, false);
         }
     }
+
+    @Override
+    public float getValueAfterReduction(MagicElement element, int value) {
+        return value * this.reductionTime;
+    }
+
+    public float getReductionTime() {
+        return reductionTime;
+    }
+
+    @Override
+    public Component getReductionMessage() {
+        return Component.translatable("item.thaumcraft.reduction.tooltip").withStyle(ChatFormatting.DARK_PURPLE).append(Component.literal(" " + (int)(reductionTime * 100) + "%").withStyle(ChatFormatting.LIGHT_PURPLE));
+    }
+
 
 }

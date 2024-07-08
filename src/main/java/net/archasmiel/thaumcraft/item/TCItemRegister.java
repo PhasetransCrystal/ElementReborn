@@ -14,11 +14,12 @@ import java.util.function.Supplier;
 public class TCItemRegister {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Thaumcraft.MODID);
 
-    public static final DeferredItem<Item> staff_rod_blaze = register("staff_rod_blaze", () -> new WandRod(new TCItem.TCProperties.Builder(new Item.Properties().component(DataComponents.MAX_STACK_SIZE,1)).build(), 50));
+    public static final DeferredItem<Item> wand = register("wand", () -> new WandRod(new TCItem.TCProperties.Builder(new Item.Properties().component(DataComponents.MAX_STACK_SIZE,1)).build(), 50,1.1f));
 
     public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
         DeferredItem<T> i = ITEMS.register(name, item);
         ThaumcraftTabs.ITEMS.add(i);
         return i;
     }
+
 }

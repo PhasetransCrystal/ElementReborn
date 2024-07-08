@@ -30,7 +30,7 @@ public class TCItem extends Item {
 
     public static class TCProperties {
         public static final TCProperties EMPTY = new TCProperties.Builder(new Item.Properties()).build();
-        private final List<Component> tooltips;
+        public final List<Component> tooltips;
         public final List<Component> shifted_tooltips;
         private final String name;
         private final Item.Properties properties;
