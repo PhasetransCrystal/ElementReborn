@@ -29,16 +29,9 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
         super(TCBlockEntityRegister.NODE.get(), p_155229_, p_155230_);
     }
 
-
-    public NodeBlockEntity(BlockPos p_155229_, BlockState p_155230_, NodeType type, NodeModifier modifier, StorageElements elements) {
-        super(TCBlockEntityRegister.NODE.get(), p_155229_, p_155230_);
-        this.elements.copyFrom(elements);
-    }
-
     public static void tick(Level level, BlockPos pos, BlockState state, NodeBlockEntity entity) {
 
     }
-
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
