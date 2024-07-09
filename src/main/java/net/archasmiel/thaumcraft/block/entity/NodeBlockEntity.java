@@ -49,6 +49,8 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
         Player player = user instanceof Player ? (Player) user : null;
         boolean modifiedNode = false;
         WandRod wandRod = user.getMainHandItem().getItem() instanceof WandRod? (WandRod) user.getMainHandItem().getItem() : null;
+        if (player == null || wandRod == null) return;
+        StorageElements storage = WandRod.getElements(user.getMainHandItem());
     }
 
     @Override

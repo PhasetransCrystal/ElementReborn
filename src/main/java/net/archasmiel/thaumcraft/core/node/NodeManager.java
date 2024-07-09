@@ -18,10 +18,10 @@ import java.util.*;
 
 public class NodeManager {
     public static NodeManager instance;
-    public static final Map<TagKey<Biome>, MagicElement> TagKeyElements = new HashMap<>();
+    public final Map<TagKey<Biome>, MagicElement> tagKeyElements = new HashMap<>();
 
-    public static void registerBiomesTag(TagKey<Biome> tag, MagicElement element){
-        TagKeyElements.put(tag, element);
+    public void registerBiomesTag(TagKey<Biome> tag, MagicElement element){
+        tagKeyElements.put(tag, element);
     }
 
     public static NodeManager getInstance() {
@@ -66,7 +66,7 @@ public class NodeManager {
         if (node.getLevel() != null && (node.getLevel() == null || node.getLevel().isClientSide)) return;
         RandomSource random = node.getLevel().random;
         Holder<Biome> biomes = node.getLevel().getBiome(node.getBlockPos());
-        TagKeyElements.forEach((tag, element) -> {
+        this.tagKeyElements.forEach((tag, element) -> {
             if (biomes.is(tag) && !preInitElements.contains(element)){
                 preInitElements.add(element);
             }
