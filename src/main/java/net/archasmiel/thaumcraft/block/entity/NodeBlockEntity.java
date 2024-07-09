@@ -7,35 +7,42 @@ import net.archasmiel.thaumcraft.core.node.*;
 import net.archasmiel.thaumcraft.core.wands.WandRod;
 import net.archasmiel.thaumcraft.item.relics.ItemThaumometer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
     public NodeType type;
     public NodeModifier modifier;
     public Player drainPlayer;
+    public Map<MagicElement,Integer> baseStorage;
 
     public NodeBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(TCBlockEntityRegister.NODE.get(), p_155229_, p_155230_);
+       // TODO NodeManager.getInstance().initNode(this);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, NodeBlockEntity entity) {
-
     }
-
 
 
     public void onUsingWandTick(LivingEntity user) {
@@ -43,9 +50,6 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
         boolean modifiedNode = false;
         WandRod wandRod = user.getMainHandItem().getItem() instanceof WandRod? (WandRod) user.getMainHandItem().getItem() : null;
     }
-
-
-
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
@@ -111,9 +115,6 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
        }
        return null;
     }
-
-
-
 
 
 }

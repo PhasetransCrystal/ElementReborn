@@ -88,23 +88,49 @@ public class StorageElements {
         elements.clear();
     }
 
-    public StorageElements addElement(MagicElement element, float value) {
+    public void addElement(MagicElement element, float value) {
         if (this.containsElement(element)) {
             elements.put(element, elements.get(element) + value);
         } else {
             elements.put(element, value);
         }
-        return this;
     }
 
-    public StorageElements setElement(MagicElement element, float value) {
-        elements.put(element, value);
-        return this;
+    public void merge(MagicElement element, float amount) {
+        float oldAmount;
+        if (this.elements.containsKey(element) && amount < (oldAmount = this.elements.get(element))) {
+            amount = oldAmount;
+        }
+        this.elements.put(element, amount);
     }
 
-    public void copyFrom(StorageElements other) {
+    public void merge(StorageElements other) {
+        float oldAmount;
         for (Map.Entry<MagicElement, Float> entry : other.elements.entrySet()) {
-            this.addElement(entry.getKey(), entry.getValue());
+            if (this.elements.containsKey(entry.getKey())) {
+                if (entry.getValue() < (oldAmount = this.elements.get(entry.getKey()))) {
+                    entry.setValue(oldAmount);
+                }
+                this.elements.put(entry.getKey(), this.elements.get(entry.getKey()) + entry.getValue());
+            } else {
+                this.elements.put(entry.getKey(), entry.getValue());
+            }
+        }
+    }
+
+
+
+    public void setElement(MagicElement element, float value) {
+        elements.put(element, value);
+    }
+
+    public void addFrom(StorageElements other) {
+        for (Map.Entry<MagicElement, Float> entry : other.elements.entrySet()) {
+            if(!this.containsElement(entry.getKey())){
+                this.addElement(entry.getKey(), entry.getValue());
+            }else{
+                this.merge(entry.getKey(), entry.getValue());
+            }
         }
     }
 
