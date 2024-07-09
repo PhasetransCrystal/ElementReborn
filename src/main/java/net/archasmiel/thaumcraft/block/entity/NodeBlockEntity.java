@@ -46,6 +46,8 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
     public static void tick(Level level, BlockPos pos, BlockState state, NodeBlockEntity node) {
         if (level.isClientSide) return;
         if (node.type == null || node.modifier == null) {
+            node.randomNodeType();
+            node.randomNodeModifier();
             node.initNode();
             node.loadBaseStorage(node.getStorage());
             level.players().forEach((player) -> {
@@ -78,16 +80,18 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
         super.loadAdditional(tag, provider);
         this.getStorage().readFromNBT(tag);
         this.loadBaseStorage(this.getStorage());
-        this.type = NodeType.valueOf(tag.getString("type"));
-        this.modifier = NodeModifier.valueOf(tag.getString("modifier"));
+        this.type = NodeType.values()[tag.getInt("type")];
+        this.modifier = NodeModifier.values()[tag.getInt("modifier")];
     }
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         super.saveAdditional(tag, provider);
         this.getStorage().writeToNBT(tag);
-        tag.putString("type", this.type.name());
-        tag.putString("modifier", this.modifier.name());
+        if (this.type != null && this.modifier != null){
+            tag.putInt("type", this.type.ordinal());
+            tag.putInt("modifier", this.modifier.ordinal());
+        }
     }
 
     @Override
@@ -156,18 +160,14 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
         }
         storage.merge(lavaCheck());
         storage.addFrom(randomPrimalElements(random, preInitElements));
-        if (this.type == null || this.modifier == null){
-            randomNodeTypeAndModifier();
-        }
         this.getStorage().addFrom(storage);
     }
 
-    public void randomNodeTypeAndModifier(){
+    public void randomNodeType(){
         if (this.getLevel() == null || this.getLevel().isClientSide) return;
         RandomSource random = this.getLevel().random;
         int type = random.nextInt(50, 100);
         NodeType nodeType = NodeType.NORMAL;
-        NodeModifier modifier = NodeModifier.COMMON;
         if(type < 50){
             int t = random.nextInt(0,100);
             if(t < 3){
@@ -184,7 +184,12 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
         }
 
         this.setNodeType(nodeType);
-        int m = random.nextInt(0,120);
+    }
+
+    public void randomNodeModifier(){
+        if (this.getLevel() == null || this.getLevel().isClientSide) return;
+        NodeModifier modifier = NodeModifier.COMMON;
+        int m = this.getLevel().random.nextInt(0,120);
         if (m < 15){
             modifier = NodeModifier.BRIGHT;
         }else if(m < 30){
