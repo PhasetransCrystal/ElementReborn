@@ -33,10 +33,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
-    public NodeType type;
-    public NodeModifier modifier;
-    public Player drainPlayer;
-    public Map<MagicElement,Integer> baseStorage = new HashMap<>();
+    private NodeType type;
+    private NodeModifier modifier;
+    private Player drainPlayer;
+    private Map<MagicElement,Integer> baseStorage = new HashMap<>();
+    private final StorageElements storage = new StorageElements(new HashMap<>());
 
     public NodeBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
         super(TCBlockEntityRegister.NODE.get(), p_155229_, p_155230_);
@@ -44,7 +45,7 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
 
     public static void tick(Level level, BlockPos pos, BlockState state, NodeBlockEntity node) {
         if (level.isClientSide) return;
-        if (node != null && (node.type == null || node.modifier == null)) {
+        if (node.type == null || node.modifier == null) {
             node.initNode();
             node.loadBaseStorage(node.getStorage());
             level.players().forEach((player) -> {
@@ -77,16 +78,16 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
         super.loadAdditional(tag, provider);
         this.getStorage().readFromNBT(tag);
         this.loadBaseStorage(this.getStorage());
-        this.type = NodeType.values()[tag.getInt("type")];
-        this.modifier = NodeModifier.values()[tag.getInt("modifier")];
+        this.type = NodeType.valueOf(tag.getString("type"));
+        this.modifier = NodeModifier.valueOf(tag.getString("modifier"));
     }
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         super.saveAdditional(tag, provider);
         this.getStorage().writeToNBT(tag);
-        tag.putInt("type", this.type.ordinal());
-        tag.putInt("modifier", this.modifier.ordinal());
+        tag.putString("type", this.type.name());
+        tag.putString("modifier", this.modifier.name());
     }
 
     @Override
@@ -233,7 +234,7 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
 
     public StorageElements randomPrimalElements(RandomSource random, List<MagicElement> preInitElements){
         List<MagicElement> primalElements = ElementsRegistry.getPrimalElements();
-        int time = random.nextInt(0, 2);
+        int time = random.nextInt(1, 2);
         StorageElements storage = new StorageElements(new HashMap<>());
 
         preInitElements.forEach(i -> {
@@ -253,4 +254,8 @@ public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
         return storage;
     }
 
+    @Override
+    public StorageElements getStorage() {
+        return this.storage;
+    }
 }

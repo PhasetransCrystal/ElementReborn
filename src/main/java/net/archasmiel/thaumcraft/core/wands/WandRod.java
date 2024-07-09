@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class WandRod extends TCItem implements IItemStorageElementsAble , IReduc
     private final int maxCapacity;
     private float receiveSpeed = 1.0f;
     private float reductionTime; // example 1.0f = 100% reduction
+    private final StorageElements storage = new StorageElements(new HashMap<>());
 
     public WandRod(TCProperties tcProperties, int maxCapacity,float reductionTime) {
         super(tcProperties);
@@ -106,5 +108,8 @@ public class WandRod extends TCItem implements IItemStorageElementsAble , IReduc
         return Component.translatable("item.thaumcraft.reduction.tooltip").withStyle(ChatFormatting.DARK_PURPLE).append(Component.literal(" " + (int)(reductionTime * 100) + "%").withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 
-
+    @Override
+    public StorageElements getStorage() {
+        return this.storage;
+    }
 }
