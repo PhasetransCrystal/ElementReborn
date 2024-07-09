@@ -23,33 +23,27 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
     public static final int WAND_ROD_SLOT = 10;
     private final Container container;
-    private final RecipeType<? extends ArcaneWorkBenchRecipe> recipeType;
-    private final Inventory playerInventory;
     private final ContainerLevelAccess access;
-    private final ResultContainer resultSlots = new ResultContainer();
 
     public ArcaneWorkBenchMenu(int p_38963_, Inventory p_38964_
     ) {
-        this(TCInventoryRegister.ARCANE_WORKBENCH, TCRecipeRegister.ARCANE_WORK_BENCH, p_38963_, p_38964_, new SimpleContainer(11), ContainerLevelAccess.NULL);
+        this(TCInventoryRegister.ARCANE_WORKBENCH, p_38963_, p_38964_, new SimpleContainer(11), ContainerLevelAccess.NULL);
     }
 
     public ArcaneWorkBenchMenu(int syncId, Inventory inventory, Container container, ContainerLevelAccess access
     ) {
-        this(TCInventoryRegister.ARCANE_WORKBENCH, TCRecipeRegister.ARCANE_WORK_BENCH, syncId, inventory, container, access);
+        this(TCInventoryRegister.ARCANE_WORKBENCH, syncId, inventory, container, access);
     }
 
 
     public ArcaneWorkBenchMenu(
             @Nullable MenuType<?> menuType,
-            RecipeType<? extends ArcaneWorkBenchRecipe> recipeType,
             int syncId,
             Inventory playerInventory,
             Container container,
             ContainerLevelAccess access
     ) {
         super(menuType, syncId);
-        this.playerInventory = playerInventory;
-        this.recipeType = recipeType;
         this.container = container;
         this.access = access;
 

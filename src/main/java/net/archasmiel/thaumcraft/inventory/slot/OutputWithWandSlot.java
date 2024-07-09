@@ -34,6 +34,6 @@ public class OutputWithWandSlot extends Slot {
 
     @Override
     public boolean mayPickup(Player player) {
-        return menu.hasEnoughVis(player);
+        return menu.isDefaultCraftingRecipe() || menu.hasEnoughVis(player);
     }
 }
