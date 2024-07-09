@@ -17,7 +17,6 @@ public class ElementRender {
         int r = (color >> 16) & 0xFF;
         int g = (color >> 8) & 0xFF;
         int b = color & 0xFF;
-        int a = (color >> 24) & 0xFF;
         gui.pose().pushPose();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();

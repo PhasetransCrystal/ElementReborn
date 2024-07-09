@@ -29,9 +29,13 @@ public class ArcaneWorkBenchScreen extends AbstractContainerScreen<ArcaneWorkBen
         RenderSystem.setShader(GameRenderer::getPositionShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
+        RenderSystem.enableBlend();
+        RenderSystem.enableDepthTest();
         int x = (this.width - 256) / 2;
         int y = (this.height - 256) / 2;
         graphics.blit(TEXTURE, x, y, 0, 0, 256, 256);
+        RenderSystem.disableBlend();
+        RenderSystem.disableDepthTest();
 
         assert this.minecraft != null;
         if (!this.getMenu().isDefaultCraftingRecipe() && !this.getMenu().hasEnoughVis(this.minecraft.player)) {
