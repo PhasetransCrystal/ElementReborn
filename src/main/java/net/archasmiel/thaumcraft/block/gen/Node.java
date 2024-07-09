@@ -1,6 +1,8 @@
 package net.archasmiel.thaumcraft.block.gen;
 
 import com.mojang.serialization.MapCodec;
+import net.archasmiel.thaumcraft.block.TCBlockEntityRegister;
+import net.archasmiel.thaumcraft.block.entity.ArcaneWorkBenchBlockEntity;
 import net.archasmiel.thaumcraft.block.entity.NodeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,6 +17,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -49,6 +53,12 @@ public class Node extends BaseEntityBlock {
             @NotNull BlockHitResult hitResult
     ) {
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
+        return createTickerHelper(p_153214_, TCBlockEntityRegister.NODE.get(), NodeBlockEntity::tick);
     }
 
     @Nullable

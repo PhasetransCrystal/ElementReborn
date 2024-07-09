@@ -9,6 +9,8 @@ import net.archasmiel.thaumcraft.element.TCMagicElements;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import org.jetbrains.annotations.NotNull;
@@ -210,6 +212,15 @@ public class StorageElements {
             text.append(element.getName()).append(" : ").append(this.getElementValue(element)).append("\n");
         }
         return text.toString();
+    }
+
+    public Component toComponent() {
+        MutableComponent text = Component.literal("Storage Elements:").append("\n");
+        for (MagicElement element : this.getElements()) {
+            text.append(element.getTranslationText()).append(" : ").append(String.valueOf(this.getElementValue(element))).append("\n");
+        }
+
+        return text;
     }
 
     public void reduceRootElements(float vis) {
