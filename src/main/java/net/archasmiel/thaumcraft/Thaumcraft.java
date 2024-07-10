@@ -3,11 +3,13 @@ package net.archasmiel.thaumcraft;
 import com.mojang.logging.LogUtils;
 import net.archasmiel.thaumcraft.block.TCBlockEntityRegister;
 import net.archasmiel.thaumcraft.block.TCBlockRegister;
+import net.archasmiel.thaumcraft.client.render.NodeRender;
 import net.archasmiel.thaumcraft.data.TCDataComponentRegister;
 import net.archasmiel.thaumcraft.core.recipe.TCRecipeRegister;
 import net.archasmiel.thaumcraft.element.TCMagicElements;
 import net.archasmiel.thaumcraft.inventory.TCInventoryRegister;
 import net.archasmiel.thaumcraft.item.TCItemRegister;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.api.distmarker.Dist;
@@ -19,6 +21,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterRenderBuffersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
@@ -64,6 +67,7 @@ public class Thaumcraft {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            // TODO BlockEntityRenderers.register(TCBlockEntityRegister.NODE.get(), new NodeRender<>());
         }
     }
 }

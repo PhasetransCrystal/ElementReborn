@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class NodeBlockEntity extends BlockEntity implements INode , IRevealer {
+public class NodeBlockEntity extends BlockEntity implements INode {
     private NodeType type;
     private NodeModifier modifier;
     private Player drainPlayer;
