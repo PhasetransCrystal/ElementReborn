@@ -68,8 +68,8 @@ public class StorageElements {
         return elements.getOrDefault(element, 0f);
     }
 
-    public Iterable<MagicElement> getElements() {
-        return elements.keySet();
+    public List<MagicElement> getElements() {
+        return elements.keySet().stream().toList();
     }
 
 

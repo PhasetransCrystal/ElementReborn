@@ -263,4 +263,8 @@ public class NodeBlockEntity extends BlockEntity implements INode {
     public StorageElements getStorage() {
         return this.storage;
     }
+
+    public int getColor() {
+        return 11184810;
+    }
 }

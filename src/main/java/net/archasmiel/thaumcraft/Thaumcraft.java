@@ -67,7 +67,7 @@ public class Thaumcraft {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            // TODO BlockEntityRenderers.register(TCBlockEntityRegister.NODE.get(), new NodeRender<>());
+            BlockEntityRenderers.register(TCBlockEntityRegister.NODE.get(), new NodeRender<>());
         }
     }
 }
