@@ -10,6 +10,7 @@ import net.archasmiel.thaumcraft.core.wands.WandRod;
 import net.archasmiel.thaumcraft.element.TCMagicElements;
 import net.archasmiel.thaumcraft.util.IResourceLocation;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.renderer.entity.ExperienceOrbRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -21,6 +22,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -52,7 +54,7 @@ public class NodeBlockEntity extends BlockEntity implements INode {
             node.randomNodeType();
             node.randomNodeModifier();
             node.initNode();
-            node.loadBaseStorage(node.getStorage());
+            node.loadBaseStorage();
             level.players().forEach((player) -> {
                 player.sendSystemMessage(Component.literal("Node initialized : " + node.getBlockPos()));
                 player.sendSystemMessage(Component.literal("Type : " + node.type.name()));
@@ -62,7 +64,6 @@ public class NodeBlockEntity extends BlockEntity implements INode {
             setChanged(level, pos, state);
 //            PacketDistributor.sendToAllPlayers(new DataSyn(node.saveNetwork(new CompoundTag()),pos));
         }
-
     }
 
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
@@ -70,7 +71,7 @@ public class NodeBlockEntity extends BlockEntity implements INode {
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
         return saveWithoutMetadata(provider);
     }
 
@@ -80,8 +81,8 @@ public class NodeBlockEntity extends BlockEntity implements INode {
      * @see BlockEntity#loadWithComponents(CompoundTag, HolderLookup.Provider)
      * */
 
-    public void loadBaseStorage(StorageElements storage) {
-        storage.getElements().forEach((element) -> {
+    public void loadBaseStorage() {
+        this.storage.getElements().forEach((element) -> {
             this.baseStorage.put(element, (int) storage.getElementValue(element));
         });
     }
@@ -103,7 +104,7 @@ public class NodeBlockEntity extends BlockEntity implements INode {
 
     public void loadNetwork(@NotNull CompoundTag tag) {
         this.getStorage().readFromNBT(tag);
-        this.loadBaseStorage(this.getStorage());
+        this.loadBaseStorage();
         this.type = NodeType.values()[tag.getInt("type")];
         this.modifier = NodeModifier.values()[tag.getInt("modifier")];
     }
@@ -114,13 +115,12 @@ public class NodeBlockEntity extends BlockEntity implements INode {
         saveNetwork(tag);
     }
 
-    public CompoundTag saveNetwork(CompoundTag tag){
+    public void saveNetwork(CompoundTag tag){
         this.getStorage().writeToNBT(tag);
         if (this.type != null && this.modifier != null) {
             tag.putInt("type", this.type.ordinal());
             tag.putInt("modifier", this.modifier.ordinal());
         }
-        return tag;
     }
 
     @Override
@@ -197,7 +197,7 @@ public class NodeBlockEntity extends BlockEntity implements INode {
     public void randomNodeType() {
         if (this.getLevel() == null || this.getLevel().isClientSide) return;
         RandomSource random = this.getLevel().random;
-        int type = random.nextInt(50, 100);
+        int type = random.nextInt(0, 100);
         NodeType nodeType = NodeType.NORMAL;
         if (type < 50) {
             int t = random.nextInt(0, 100);
@@ -296,8 +296,18 @@ public class NodeBlockEntity extends BlockEntity implements INode {
     }
 
     public int getColor() {
-        return 11184810;
+        StorageElements storage = this.getStorage();
+        if(storage.getElements() != null && !storage.getElements().isEmpty()){
+            return this.getStorage().getElements().getFirst().getColor();
+        }
+        return 16777086;
     }
+
+    @Nullable public List<MagicElement> getElements() {
+        if(storage.getElements() != null && !storage.getElements().isEmpty()) return this.getStorage().getElements();
+        return null;
+    }
+
 
     public record DataSyn(CompoundTag nbt, BlockPos pos) implements CustomPacketPayload {
         public static final Type<DataSyn> TYPE = new Type<>(IResourceLocation.create("node_init"));

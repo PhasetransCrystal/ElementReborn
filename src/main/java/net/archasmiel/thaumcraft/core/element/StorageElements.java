@@ -72,7 +72,6 @@ public class StorageElements {
         return elements.keySet().stream().toList();
     }
 
-
     public boolean containsElement(MagicElement element) {
         return elements.containsKey(element);
     }
@@ -120,6 +119,9 @@ public class StorageElements {
         }
     }
 
+    public float getTotalValue() {
+        return elements.values().stream().reduce(0f, Float::sum);
+    }
 
 
     public void setElement(MagicElement element, float value) {
