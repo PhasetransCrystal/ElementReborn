@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
@@ -34,7 +35,7 @@ public class Node extends BaseEntityBlock {
     public static final MapCodec<Node> CODEC = simpleCodec((p) -> new Node());
     public Node() {
         super(Properties.of()
-                .lightLevel(state -> 8)
+                .lightLevel(state -> 8).mapColor(MapColor.NONE).noOcclusion()
         );
     }
 
@@ -77,6 +78,7 @@ public class Node extends BaseEntityBlock {
     public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {
         return true;
     }
+
 
     @Override
     protected float getShadeBrightness(BlockState p_308911_, BlockGetter p_308952_, BlockPos p_308918_) {
