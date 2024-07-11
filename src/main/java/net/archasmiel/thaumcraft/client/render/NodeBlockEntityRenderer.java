@@ -92,19 +92,20 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
             if (distance > viewDistance) {
                 return;
             }
-            int alpha = (int) (((viewDistance - distance) / viewDistance) * 255);
+            float alpha = (float) ((viewDistance - distance) / viewDistance);
             renderNode(poseStack, bufferSource, alpha, condition, size, node);
         }
     }
 
 
 
-    public static void renderNode(PoseStack poseStack, MultiBufferSource bufferSource , int alpha, boolean visible, float size, NodeBlockEntity node) {
+    public static void renderNode(PoseStack poseStack, MultiBufferSource bufferSource , float alpha, boolean visible, float size, NodeBlockEntity node) {
+        long nt = System.nanoTime();
+        long time = nt / 5000000;
         poseStack.pushPose();
         poseStack.translate(0.5d, 0.5d, 0.5d);
         Quaternionf rotation = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
         poseStack.mulPose(rotation);
-        long time = System.currentTimeMillis() / 5;
         int frame = (int) ((time / 8) % 32);
         List<MagicElement> elements = node.getStorage().sortValueElements();
         if(!elements.isEmpty()){
@@ -119,9 +120,9 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
                float value = node.getStorage().getElementValue(element);
                float elementScale = scale * value / totalValue;
                coreScale = Math.max(coreScale, elementScale / 4);
-               renderNodeSide(poseStack, bufferSource, frame, elementScale, element.getColor(), element.getBlend(),visible, (int) (alpha * modifier));
+                renderNodeSide(poseStack, bufferSource, frame, elementScale, element.getColor(), element.getBlend(), visible, (int) (alpha * modifier * 220));
             }
-            renderNodeCore(poseStack, bufferSource, frame, coreScale, visible, (int) (255+ (alpha * modifier)), getNodeCoreTextureY(type));
+            renderNodeCore(poseStack, bufferSource, frame, coreScale, visible, (int) (255+ (alpha * modifier * 255)), getNodeCoreTextureY(type));
         }
         poseStack.popPose();
     }
