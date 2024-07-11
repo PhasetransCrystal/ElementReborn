@@ -51,16 +51,6 @@ public class NodeBlockEntity extends BlockEntity implements INode {
         if (level.isClientSide) return;
         //init when null
         if (node.type == null || node.modifier == null) {
-            node.randomNodeType();
-            node.randomNodeModifier();
-            node.initNode();
-            node.loadBaseStorage();
-            level.players().forEach((player) -> {
-                player.sendSystemMessage(Component.literal("Node initialized : " + node.getBlockPos()));
-                player.sendSystemMessage(Component.literal("Type : " + node.type.name()));
-                player.sendSystemMessage(Component.literal("Modifier : " + node.modifier.name()));
-                player.sendSystemMessage(node.getStorage().toComponent());
-            });
             setChanged(level, pos, state);
 //            PacketDistributor.sendToAllPlayers(new DataSyn(node.saveNetwork(new CompoundTag()),pos));
         }
@@ -72,6 +62,19 @@ public class NodeBlockEntity extends BlockEntity implements INode {
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
+        if (this.type == null || this.modifier == null){
+            this.randomNodeType();
+            this.randomNodeModifier();
+            this.initNode();
+            this.loadBaseStorage();
+            assert level != null;
+            level.players().forEach((player) -> {
+                player.sendSystemMessage(Component.literal("Node initialized : " + this.getBlockPos()));
+                player.sendSystemMessage(Component.literal("Type : " + this.type.name()));
+                player.sendSystemMessage(Component.literal("Modifier : " + this.modifier.name()));
+                player.sendSystemMessage(this.getStorage().toComponent());
+            });
+        }
         return saveWithoutMetadata(provider);
     }
 
@@ -115,12 +118,13 @@ public class NodeBlockEntity extends BlockEntity implements INode {
         saveNetwork(tag);
     }
 
-    public void saveNetwork(CompoundTag tag){
+    public CompoundTag saveNetwork(CompoundTag tag){
         this.getStorage().writeToNBT(tag);
         if (this.type != null && this.modifier != null) {
             tag.putInt("type", this.type.ordinal());
             tag.putInt("modifier", this.modifier.ordinal());
         }
+        return tag;
     }
 
     @Override
