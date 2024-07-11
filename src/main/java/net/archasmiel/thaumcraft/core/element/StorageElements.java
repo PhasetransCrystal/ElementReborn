@@ -262,4 +262,8 @@ public class StorageElements {
     public List<MagicElement> filterElements(List<MagicElement> elements) {
         return this.elements.keySet().stream().filter(elements::contains).toList();
     }
+
+    public List<MagicElement> sortValueElements() {
+        return this.elements.keySet().stream().sorted((a, b) -> Float.compare(this.getElementValue(b), this.getElementValue(a))).toList();
+    }
 }

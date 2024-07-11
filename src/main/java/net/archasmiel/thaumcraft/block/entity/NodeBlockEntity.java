@@ -203,7 +203,7 @@ public class NodeBlockEntity extends BlockEntity implements INode {
         RandomSource random = this.getLevel().random;
         int type = random.nextInt(0, 100);
         NodeType nodeType = NodeType.NORMAL;
-        if (type < 50) {
+        if (type < 25) {
             int t = random.nextInt(0, 100);
             if (t < 3) {
                 nodeType = NodeType.HUNGRY;
@@ -308,6 +308,11 @@ public class NodeBlockEntity extends BlockEntity implements INode {
     }
 
     @Nullable public List<MagicElement> getElements() {
+        if(storage.getElements() != null && !storage.getElements().isEmpty()) return this.getStorage().getElements();
+        return null;
+    }
+
+    @Nullable public List<MagicElement> getSortedElements() {
         if(storage.getElements() != null && !storage.getElements().isEmpty()) return this.getStorage().getElements();
         return null;
     }

@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.archasmiel.thaumcraft.block.entity.NodeBlockEntity;
 import net.archasmiel.thaumcraft.core.element.MagicElement;
+import net.archasmiel.thaumcraft.core.node.NodeModifier;
 import net.archasmiel.thaumcraft.core.node.NodeType;
 import net.archasmiel.thaumcraft.util.IResourceLocation;
 import net.minecraft.Util;
@@ -23,6 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
+import org.lwjgl.opengl.GL20;
 import oshi.util.tuples.Pair;
 
 import java.awt.*;
@@ -104,28 +106,28 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
         poseStack.mulPose(rotation);
         long time = System.currentTimeMillis() / 5;
         int frame = (int) ((time / 8) % 32);
-        int color = node.getColor();
-        List<MagicElement> elements = node.getElements();
-        if(elements != null && !elements.isEmpty()){
-            float scale = (0.1f + ((node.getStorage().getTotalValue() / elements.size()) / 150.0f)) * size;
-            MagicElement m1 = elements.get(0);
-            MagicElement m2 = elements.size() > 1 ? elements.get(1) : null;
+        List<MagicElement> elements = node.getStorage().sortValueElements();
+        if(!elements.isEmpty()){
+            float totalValue = node.getStorage().getTotalValue();
+            int elementCount = elements.size();
+            float fix = elementCount != 1 ? 1f / elementCount * 1.5F: 1f;
+            float scale = (0.1f + ((totalValue / ((float) elementCount * fix)) / 50)) * size;
+            float coreScale = scale / 4;
             NodeType type = node.getNodeType();
-            if (m1 != null && m2 == null) {
-                renderNodeSide(poseStack, bufferSource,  frame, scale, color,m1.getBlend(),visible, alpha, 0);
-                renderNodeCore(poseStack, bufferSource, frame, scale / 2, visible, alpha, getNodeCoreTextureY(type));
+            float modifier = node.getNodeModifier().getAlpha();
+            for (MagicElement element : elements) {
+               float value = node.getStorage().getElementValue(element);
+               float elementScale = scale * value / totalValue;
+               coreScale = Math.max(coreScale, elementScale / 4);
+               renderNodeSide(poseStack, bufferSource, frame, elementScale, element.getColor(), element.getBlend(),visible, (int) (alpha * modifier));
             }
-            if (m2 != null && m1 != null) {
-                renderNodeSide(poseStack, bufferSource,  frame, scale, color,m1.getBlend(),visible, alpha, 0);
-                renderNodeCore(poseStack, bufferSource, frame, scale / 2 , visible, alpha, getNodeCoreTextureY(type));
-            }
+            renderNodeCore(poseStack, bufferSource, frame, coreScale, visible, (int) (255+ (alpha * modifier)), getNodeCoreTextureY(type));
         }
         poseStack.popPose();
     }
 
 
-    public static void renderNodeSide(PoseStack stack, MultiBufferSource buffer, int frame, float scale, int color, int blend, boolean disableDepthTest, int a, float offset) {
-        int alpha = Math.min(a, 125);
+    public static void renderNodeSide(PoseStack stack, MultiBufferSource buffer, int frame, float scale, int color, int blend, boolean disableDepthTest, int alpha) {
         int r = color >> 16 & 0xFF;
         int g = color >> 8 & 0xFF;
         int b = color & 0xFF;
@@ -134,9 +136,6 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
         float f1 = (float) xm / 32;
         float f2 = f1 + (1f / 32);
         float f3 = (float) ym / 32;
-        if (offset != 0){
-            f3 = (float) ym / 32 + 1f / 32f * offset;
-        }
         float f4 = f3 + (1f / 32)  ;
 
         VertexConsumer builder = buffer.getBuffer(NODE.apply(blend,disableDepthTest));
@@ -147,8 +146,8 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
         builder.addVertex(mat, scale, -scale, 0.0f).setColor(r, g, b, alpha).setUv(f2, f3).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
     }
 
-    public static void renderNodeCore(PoseStack stack, MultiBufferSource buffer, int frame, float scale, boolean disableDepthTest, int alpha_, float offset) {
-        // int alpha = Math.min(alpha_, 125);
+    public static void renderNodeCore(PoseStack stack, MultiBufferSource buffer, int frame, float scale, boolean disableDepthTest, int alpha255, float offset) {
+        int alpha = alpha255 > 255 ? alpha255 - 255 : 255;
         boolean enableBlend = offset != 2 && offset != 5;
         int xm = frame % 32;
         int ym = (frame / 32);
@@ -161,10 +160,10 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
         float f4 = f3 + (1f / 32) ;
         VertexConsumer builder = buffer.getBuffer(NODE_CORE.apply(enableBlend,disableDepthTest));
         Matrix4f mat = stack.last().pose();
-        builder.addVertex(mat, -scale, -scale, 0.0f).setColor(255, 255, 255, 255).setUv(f1, f3).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
-        builder.addVertex(mat, -scale, scale, 0.0f).setColor(255, 255, 255,255).setUv(f1, f4).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
-        builder.addVertex(mat, scale, scale, 0.0f).setColor(255, 255, 255, 255).setUv(f2, f4).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
-        builder.addVertex(mat, scale, -scale, 0.0f).setColor(255, 255, 255, 255).setUv(f2, f3).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
+        builder.addVertex(mat, -scale, -scale, 0.0f).setColor(255, 255, 255, alpha).setUv(f1, f3).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
+        builder.addVertex(mat, -scale, scale, 0.0f).setColor(255, 255, 255,alpha).setUv(f1, f4).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
+        builder.addVertex(mat, scale, scale, 0.0f).setColor(255, 255, 255, alpha).setUv(f2, f4).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
+        builder.addVertex(mat, scale, -scale, 0.0f).setColor(255, 255, 255, alpha).setUv(f2, f3).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
     }
 
     public static int getNodeCoreTextureY(NodeType type) {
