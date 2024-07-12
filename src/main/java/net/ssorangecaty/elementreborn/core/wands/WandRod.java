@@ -105,7 +105,7 @@ public class WandRod extends ERItem implements IItemStorageElementsAble , IReduc
 
     @Override
     public Component getReductionMessage() {
-        return Component.translatable("item.thaumcraft.reduction.tooltip").withStyle(ChatFormatting.DARK_PURPLE).append(Component.literal(" " + (int)(reductionTime * 100) + "%").withStyle(ChatFormatting.LIGHT_PURPLE));
+        return Component.translatable("item.elementreborn.reduction.tooltip").withStyle(ChatFormatting.DARK_PURPLE).append(Component.literal(" " + (int)(reductionTime * 100) + "%").withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 
     @Override
