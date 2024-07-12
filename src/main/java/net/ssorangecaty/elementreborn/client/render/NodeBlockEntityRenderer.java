@@ -1,5 +1,6 @@
 package net.ssorangecaty.elementreborn.client.render;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -108,22 +109,26 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
             int elementCount = elements.size();
             float fix = elementCount != 1 ? 1f / elementCount * 1.5F: 1f;
             float scale = (0.1f + ((totalValue / ((float) elementCount * fix)) / 50)) * size;
-            float coreScale = scale / 4;
+            float coreScale = scale / 2;
             NodeType type = node.getNodeType();
             float modifier = node.getNodeModifier().getAlpha();
+            float value = node.getStorage().getElementValue(elements.getFirst());
+            float elementSize = 1.0F;
+            int count = 1;
             for (MagicElement element : elements) {
-               float value = node.getStorage().getElementValue(element);
-               float elementScale = scale * value / totalValue;
-               coreScale = Math.max(coreScale, elementScale / 4);
-                renderNodeSide(poseStack, bufferSource, frame, elementScale, element.getColor(), element.getBlend(), visible, (int) (alpha * modifier * 220));
+                elementSize = count == 1 ? scale * value / totalValue : elementSize / count * 1.25F;
+               coreScale = Math.min(coreScale, elementSize * 0.5F);
+               renderNodeSide(poseStack, bufferSource, frame, Math.min(2.5f, elementSize), element.getColor(), element.getBlend(), visible, (int) ((int) (alpha * modifier * 255) / count * 1.25F));
+               count++;
             }
-            renderNodeCore(poseStack, bufferSource, frame, coreScale, visible, (int) (255+ (alpha * modifier * 255)), getNodeCoreTextureY(type));
+            renderNodeCore(poseStack, bufferSource, frame, coreScale, visible, (int) ((alpha * modifier * 255)), getNodeCoreTextureY(type));
         }
         poseStack.popPose();
     }
 
 
     public static void renderNodeSide(PoseStack stack, MultiBufferSource buffer, int frame, float scale, int color, int blend, boolean disableDepthTest, int alpha) {
+        int fixedAlpha = Math.min(175,alpha);
         int r = color >> 16 & 0xFF;
         int g = color >> 8 & 0xFF;
         int b = color & 0xFF;
@@ -136,14 +141,13 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
 
         VertexConsumer builder = buffer.getBuffer(NODE.apply(blend,disableDepthTest));
         Matrix4f mat = stack.last().pose();
-        builder.addVertex(mat, -scale, -scale, 0.0f).setColor(r, g, b, alpha).setUv(f1, f3).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
-        builder.addVertex(mat, -scale, scale, 0.0f).setColor(r, g, b, alpha).setUv(f1, f4).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
-        builder.addVertex(mat, scale, scale, 0.0f).setColor(r, g, b, alpha).setUv(f2, f4).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
-        builder.addVertex(mat, scale, -scale, 0.0f).setColor(r, g, b, alpha).setUv(f2, f3).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
+        builder.addVertex(mat, -scale, -scale, 0.0f).setColor(r, g, b, fixedAlpha).setUv(f1, f3).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
+        builder.addVertex(mat, -scale, scale, 0.0f).setColor(r, g, b, fixedAlpha).setUv(f1, f4).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
+        builder.addVertex(mat, scale, scale, 0.0f).setColor(r, g, b, fixedAlpha).setUv(f2, f4).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
+        builder.addVertex(mat, scale, -scale, 0.0f).setColor(r, g, b, fixedAlpha).setUv(f2, f3).setOverlay(OverlayTexture.NO_OVERLAY).setUv2(0,0).setNormal(0, 1, 0);
     }
 
-    public static void renderNodeCore(PoseStack stack, MultiBufferSource buffer, int frame, float scale, boolean disableDepthTest, int alpha255, float offset) {
-        int alpha = alpha255 > 255 ? alpha255 - 255 : 255;
+    public static void renderNodeCore(PoseStack stack, MultiBufferSource buffer, int frame, float scale, boolean disableDepthTest, int alpha, float offset) {
         boolean enableBlend = offset != 2 && offset != 5;
         int xm = frame % 32;
         int ym = (frame / 32);
@@ -164,12 +168,12 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
 
     public static int getNodeCoreTextureY(NodeType type) {
         return switch (type) {
-            case UNSTABLE -> 6; // 不稳定的
-            case DARK -> 5; // 诅咒的
-            case TAINTED -> 2; // 侵蚀的
-            case HUNGRY -> 3; // 饕餮
-            case PURE -> 4; // 纯净
-            default -> 1; // 正常
+            case UNSTABLE -> 6;
+            case DARK -> 5;
+            case TAINTED -> 2;
+            case HUNGRY -> 3;
+            case PURE -> 4;
+            default -> 1;
         };
     }
     @Override
