@@ -28,7 +28,7 @@ import java.util.function.BiFunction;
 
 
 public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements BlockEntityRenderer<T> {
-    public static final ResourceLocation TEXTURE = IResourceLocation.create("textures/misc/nodes.png");
+    public static final ResourceLocation TEXTURE = IResourceLocation.create("textures/misc/node.png");
 
 
     protected static final BiFunction<Integer, Boolean, RenderStateShard.TransparencyStateShard> LIGHTNING_TRANSPARENCY = Util.memoize(
