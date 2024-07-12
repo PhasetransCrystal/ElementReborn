@@ -1,31 +1,21 @@
 
 ---
+# Element: Reborn | Elements: Rebirth
 
-# Thaumcraft: Reborn | Thaumcraft 4: Rebirth
-## [中文 / Chinese](README_zh.md)
-# Rewrite:
-#### The aim is to restore the original content as much as possible while incorporating improvements and additions that are believed to enhance gameplay or other aspects. This includes integrating content from its associated mods into the main body, or altering certain game details.
+## [中文](README_zh.md)
 
-## Copyright Ownership
-#### All rights to Thaumcraft belong to the original author, Azanor.
-[**Azanor GitHub**](https://github.com/Azanor)<br>
-[**Azanor Repos**](https://github.com/Azanor?tab=repositories)<br><br>
+### Project Loader: NeoForge 1.21
 
-### The mod loader used for the project is NeoForge 1.21
+#### Completed Tasks
+- [x] Basic construction of elemental nodes
+- [x] Elemental Workbench
+- [x] Test Staff
 
-## ***Completed***
-- [x] *All items added except for special models [Functionality not yet implemented]*
-- [x] *Item Tag Page*
-- [x] *Arcane Workbench*
-- [x] *Basic Staff Functionality [Element storage and viewing the capacity of elements within items]*
-- [x] *Essence Node Basic Functionality [Staff extraction, element storage and retrieval]*
-
-## ***To Be Completed***
-- [ ] *Special Items [e.g., accessories]*
-- [ ] *To be determined, further planning for the next steps will be required*
+#### Pending Tasks
+- [ ] *Further planning will be made to address current needs and the next steps to be completed.*
 - [ ] *......*
 
-#### License
-This template is available under the CC0-1.0 license, you are free to learn from it and incorporate it into your own projects.
+### MIT [License](LICENSE)
+Copyright (c) 2024 SSOrangeCATY
 
 ---
