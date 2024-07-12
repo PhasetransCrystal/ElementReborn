@@ -5,7 +5,6 @@ import net.ssorangecaty.elementreborn.block.TCBlockEntityRegister;
 import net.ssorangecaty.elementreborn.core.element.ElementsRegistry;
 import net.ssorangecaty.elementreborn.core.element.MagicElement;
 import net.ssorangecaty.elementreborn.core.element.StorageElements;
-import net.archasmiel.thaumcraft.core.node.*;
 import net.ssorangecaty.elementreborn.core.node.INode;
 import net.ssorangecaty.elementreborn.core.node.NodeManager;
 import net.ssorangecaty.elementreborn.core.node.NodeModifier;
