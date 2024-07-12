@@ -2,7 +2,7 @@ package net.ssorangecaty.elementreborn.inventory.slot;
 
 import net.ssorangecaty.elementreborn.block.entity.ArcaneWorkBenchBlockEntity;
 import net.ssorangecaty.elementreborn.core.element.StorageElements;
-import net.ssorangecaty.elementreborn.data.TCDataComponentRegister;
+import net.ssorangecaty.elementreborn.data.ERDataComponentRegister;
 import net.ssorangecaty.elementreborn.inventory.menu.ArcaneWorkBenchMenu;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +27,7 @@ public class OutputWithWandSlot extends Slot {
         for (int c = 0; c < 9; c++)
             this.container.removeItem(c, 1);
         float vis = ArcaneWorkBenchBlockEntity.calculateVis(this.getItem(), this.menu.getDefaultVis(), player);
-        StorageElements storage = this.container.getItem(ArcaneWorkBenchBlockEntity.WAND_ROD_SLOT).get(TCDataComponentRegister.STORAGE_ELEMENTS);
+        StorageElements storage = this.container.getItem(ArcaneWorkBenchBlockEntity.WAND_ROD_SLOT).get(ERDataComponentRegister.STORAGE_ELEMENTS);
         if (storage != null) storage.reduceRootElements(vis);
         super.onTake(player, stack);
     }

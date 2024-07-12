@@ -1,7 +1,7 @@
 package net.ssorangecaty.elementreborn.block.gen;
 
 import com.mojang.serialization.MapCodec;
-import net.ssorangecaty.elementreborn.block.TCBlockEntityRegister;
+import net.ssorangecaty.elementreborn.block.ERBlockEntityRegister;
 import net.ssorangecaty.elementreborn.block.entity.NodeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -54,7 +54,7 @@ public class Node extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
-        return createTickerHelper(p_153214_, TCBlockEntityRegister.NODE.get(), NodeBlockEntity::tick);
+        return createTickerHelper(p_153214_, ERBlockEntityRegister.NODE.get(), NodeBlockEntity::tick);
     }
 
     @Nullable

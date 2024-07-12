@@ -1,14 +1,14 @@
 package net.ssorangecaty.elementreborn;
 
 import com.mojang.logging.LogUtils;
-import net.ssorangecaty.elementreborn.block.TCBlockEntityRegister;
-import net.ssorangecaty.elementreborn.block.TCBlockRegister;
+import net.ssorangecaty.elementreborn.block.ERBlockEntityRegister;
+import net.ssorangecaty.elementreborn.block.ERBlockRegister;
 import net.ssorangecaty.elementreborn.client.render.NodeRender;
-import net.ssorangecaty.elementreborn.data.TCDataComponentRegister;
+import net.ssorangecaty.elementreborn.data.ERDataComponentRegister;
 import net.ssorangecaty.elementreborn.core.recipe.TCRecipeRegister;
-import net.ssorangecaty.elementreborn.element.TCMagicElements;
-import net.ssorangecaty.elementreborn.inventory.TCInventoryRegister;
-import net.ssorangecaty.elementreborn.item.TCItemRegister;
+import net.ssorangecaty.elementreborn.element.ERMagicElements;
+import net.ssorangecaty.elementreborn.inventory.ERInventoryRegister;
+import net.ssorangecaty.elementreborn.item.ERItemRegister;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.api.distmarker.Dist;
@@ -33,15 +33,15 @@ public class ElementReborn {
     public ElementReborn(IEventBus bus, ModContainer modContainer) {
         bus.addListener(this::commonSetup);
 
-        TCBlockRegister.BLOCKS.register(bus);
-        TCItemRegister.ITEMS.register(bus);
-        TCBlockEntityRegister.REGISTRY.register(bus);
+        ERBlockRegister.BLOCKS.register(bus);
+        ERItemRegister.ITEMS.register(bus);
+        ERBlockEntityRegister.REGISTRY.register(bus);
         ElementRebornTabs.CREATIVE_MODE_TABS.register(bus);
-        TCInventoryRegister.REGISTRY.register(bus);
+        ERInventoryRegister.REGISTRY.register(bus);
         TCRecipeRegister.RECIPE_TYPES.register(bus);
         TCRecipeRegister.RECIPE_SERIALIZERS.register(bus);
-        TCMagicElements.ELEMENTS.register(bus);
-        TCDataComponentRegister.REGISTRY.register(bus);
+        ERMagicElements.ELEMENTS.register(bus);
+        ERDataComponentRegister.REGISTRY.register(bus);
         NeoForge.EVENT_BUS.register(this);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -71,7 +71,7 @@ public class ElementReborn {
 
         @SubscribeEvent
         public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-            event.registerBlockEntityRenderer(TCBlockEntityRegister.NODE.get(), new NodeRender<>());
+            event.registerBlockEntityRenderer(ERBlockEntityRegister.NODE.get(), new NodeRender<>());
         }
     }
 }

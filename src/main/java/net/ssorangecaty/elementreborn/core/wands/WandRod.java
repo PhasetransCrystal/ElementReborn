@@ -3,9 +3,9 @@ package net.ssorangecaty.elementreborn.core.wands;
 import net.ssorangecaty.elementreborn.core.element.IReductionElementsAble;
 import net.ssorangecaty.elementreborn.core.element.MagicElement;
 import net.ssorangecaty.elementreborn.core.element.StorageElements;
-import net.ssorangecaty.elementreborn.core.item.TCItem;
-import net.ssorangecaty.elementreborn.data.TCDataComponentRegister;
-import net.ssorangecaty.elementreborn.element.TCMagicElements;
+import net.ssorangecaty.elementreborn.core.item.ERItem;
+import net.ssorangecaty.elementreborn.data.ERDataComponentRegister;
+import net.ssorangecaty.elementreborn.element.ERMagicElements;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -18,13 +18,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class WandRod extends TCItem implements IItemStorageElementsAble , IReductionElementsAble {
+public class WandRod extends ERItem implements IItemStorageElementsAble , IReductionElementsAble {
     private final int maxCapacity;
     private float receiveSpeed = 1.0f;
     private float reductionTime; // example 1.0f = 100% reduction
     private final StorageElements storage = new StorageElements(new HashMap<>());
 
-    public WandRod(TCProperties tcProperties, int maxCapacity,float reductionTime) {
+    public WandRod(ERProperties tcProperties, int maxCapacity, float reductionTime) {
         super(tcProperties);
         this.maxCapacity = maxCapacity;
         this.reductionTime = reductionTime;
@@ -32,9 +32,9 @@ public class WandRod extends TCItem implements IItemStorageElementsAble , IReduc
     }
 
     public static StorageElements getElements(ItemStack stack) {
-        StorageElements elements = stack.get(TCDataComponentRegister.STORAGE_ELEMENTS);
+        StorageElements elements = stack.get(ERDataComponentRegister.STORAGE_ELEMENTS);
         if (elements == null)
-            elements = stack.set(TCDataComponentRegister.STORAGE_ELEMENTS, new StorageElements(Map.of()));
+            elements = stack.set(ERDataComponentRegister.STORAGE_ELEMENTS, new StorageElements(Map.of()));
         return elements;
     }
 
@@ -44,7 +44,7 @@ public class WandRod extends TCItem implements IItemStorageElementsAble , IReduc
         StorageElements elements = getElements(itemStack);
         MutableComponent component = Component.empty();
         boolean first = true;
-        for (MagicElement element : TCMagicElements.DEFAULT_ELEMENTS) {
+        for (MagicElement element : ERMagicElements.DEFAULT_ELEMENTS) {
             if (!first) component.append(Component.literal(" | "));
             component.append(Component.literal(String.format("%.2f", elements.getOrDefault(element))).withColor(element.getColor()));
             first = false;

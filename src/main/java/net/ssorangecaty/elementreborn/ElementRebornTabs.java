@@ -1,6 +1,6 @@
 package net.ssorangecaty.elementreborn;
 
-import net.ssorangecaty.elementreborn.block.TCBlockRegister;
+import net.ssorangecaty.elementreborn.block.ERBlockRegister;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -18,9 +18,9 @@ public class ElementRebornTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ElementReborn.MODID);
     public static final List<DeferredItem<? extends Item>> ITEMS = new ArrayList<>();
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> THAUMCRAFT_TAB = CREATIVE_MODE_TABS.register("thaumcraft_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.thaumcraft")) //The language key for the title of your CreativeModeTab
+            .title(Component.translatable("itemGroup.elementreborn")) //The language key for the title of your CreativeModeTab
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(TCBlockRegister.ARCANE_WORKBENCH.asItem()::getDefaultInstance)
+            .icon(ERBlockRegister.ARCANE_WORKBENCH.asItem()::getDefaultInstance)
             .displayItems((parameters, output) -> ITEMS.stream().map(Supplier::get).map(Item::getDefaultInstance).forEach(output::accept))
             .build());
 }

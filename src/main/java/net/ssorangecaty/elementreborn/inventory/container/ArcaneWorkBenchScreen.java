@@ -3,7 +3,7 @@ package net.ssorangecaty.elementreborn.inventory.container;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.ssorangecaty.elementreborn.ElementReborn;
 import net.ssorangecaty.elementreborn.core.element.ElementRender;
-import net.ssorangecaty.elementreborn.element.TCMagicElements;
+import net.ssorangecaty.elementreborn.element.ERMagicElements;
 import net.ssorangecaty.elementreborn.inventory.menu.ArcaneWorkBenchMenu;
 import net.ssorangecaty.elementreborn.util.IResourceLocation;
 import net.minecraft.client.gui.GuiGraphics;
@@ -39,12 +39,12 @@ public class ArcaneWorkBenchScreen extends AbstractContainerScreen<ArcaneWorkBen
 
         assert this.minecraft != null;
         if (!this.getMenu().isDefaultCraftingRecipe() && !this.getMenu().hasEnoughVis(this.minecraft.player)) {
-            ElementRender.render(graphics, x, y, TCMagicElements.EARTH, ElementRender.RenderPlace.First);
-            ElementRender.render(graphics, x, y, TCMagicElements.AIR, ElementRender.RenderPlace.Second);
-            ElementRender.render(graphics, x, y, TCMagicElements.ENTROPY, ElementRender.RenderPlace.Third);
-            ElementRender.render(graphics, x, y, TCMagicElements.ORDER, ElementRender.RenderPlace.Forth);
-            ElementRender.render(graphics, x, y, TCMagicElements.WATER, ElementRender.RenderPlace.Fifth);
-            ElementRender.render(graphics, x, y, TCMagicElements.FIRE, ElementRender.RenderPlace.Sixth);
+            ElementRender.render(graphics, x, y, ERMagicElements.EARTH, ElementRender.RenderPlace.First);
+            ElementRender.render(graphics, x, y, ERMagicElements.WIND, ElementRender.RenderPlace.Second);
+            ElementRender.render(graphics, x, y, ERMagicElements.CHAOS, ElementRender.RenderPlace.Third);
+            ElementRender.render(graphics, x, y, ERMagicElements.ORDER, ElementRender.RenderPlace.Forth);
+            ElementRender.render(graphics, x, y, ERMagicElements.WATER, ElementRender.RenderPlace.Fifth);
+            ElementRender.render(graphics, x, y, ERMagicElements.FIRE, ElementRender.RenderPlace.Sixth);
         }
     }
 

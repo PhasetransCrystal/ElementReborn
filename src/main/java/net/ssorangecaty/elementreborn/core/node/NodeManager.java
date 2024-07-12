@@ -1,7 +1,7 @@
 package net.ssorangecaty.elementreborn.core.node;
 
 import net.ssorangecaty.elementreborn.core.element.MagicElement;
-import net.ssorangecaty.elementreborn.element.TCMagicElements;
+import net.ssorangecaty.elementreborn.element.ERMagicElements;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -28,27 +28,27 @@ public class NodeManager {
     }
 
     public void initBiomesTags(){
-        registerBiomesTag(BiomeTags.IS_JUNGLE, TCMagicElements.EARTH);
-        registerBiomesTag(BiomeTags.IS_FOREST, TCMagicElements.EARTH);
-        registerBiomesTag(BiomeTags.IS_MOUNTAIN, TCMagicElements.EARTH);
-        registerBiomesTag(BiomeTags.IS_TAIGA, TCMagicElements.EARTH);
-        registerBiomesTag(BiomeTags.IS_HILL, TCMagicElements.EARTH);
+        registerBiomesTag(BiomeTags.IS_JUNGLE, ERMagicElements.EARTH);
+        registerBiomesTag(BiomeTags.IS_FOREST, ERMagicElements.EARTH);
+        registerBiomesTag(BiomeTags.IS_MOUNTAIN, ERMagicElements.EARTH);
+        registerBiomesTag(BiomeTags.IS_TAIGA, ERMagicElements.EARTH);
+        registerBiomesTag(BiomeTags.IS_HILL, ERMagicElements.EARTH);
 
-        registerBiomesTag(BiomeTags.IS_OCEAN, TCMagicElements.WATER);
-        registerBiomesTag(BiomeTags.IS_DEEP_OCEAN, TCMagicElements.WATER);
-        registerBiomesTag(BiomeTags.IS_RIVER, TCMagicElements.WATER);
-        registerBiomesTag(BiomeTags.HAS_OCEAN_RUIN_COLD, TCMagicElements.WATER);
+        registerBiomesTag(BiomeTags.IS_OCEAN, ERMagicElements.WATER);
+        registerBiomesTag(BiomeTags.IS_DEEP_OCEAN, ERMagicElements.WATER);
+        registerBiomesTag(BiomeTags.IS_RIVER, ERMagicElements.WATER);
+        registerBiomesTag(BiomeTags.HAS_OCEAN_RUIN_COLD, ERMagicElements.WATER);
 
-        registerBiomesTag(BiomeTags.IS_NETHER, TCMagicElements.FIRE);
-        registerBiomesTag(BiomeTags.IS_BADLANDS, TCMagicElements.FIRE);
-        registerBiomesTag(BiomeTags.SNOW_GOLEM_MELTS, TCMagicElements.FIRE);
+        registerBiomesTag(BiomeTags.IS_NETHER, ERMagicElements.FIRE);
+        registerBiomesTag(BiomeTags.IS_BADLANDS, ERMagicElements.FIRE);
+        registerBiomesTag(BiomeTags.SNOW_GOLEM_MELTS, ERMagicElements.FIRE);
 
-        registerBiomesTag(BiomeTags.HAS_VILLAGE_PLAINS, TCMagicElements.AIR);
+        registerBiomesTag(BiomeTags.HAS_VILLAGE_PLAINS, ERMagicElements.WIND);
 
-        registerBiomesTag(BiomeTags.HAS_VILLAGE_SNOWY, TCMagicElements.ORDER);
-        registerBiomesTag(BiomeTags.SPAWNS_WHITE_RABBITS, TCMagicElements.ORDER);
+        registerBiomesTag(BiomeTags.HAS_VILLAGE_SNOWY, ERMagicElements.ORDER);
+        registerBiomesTag(BiomeTags.SPAWNS_WHITE_RABBITS, ERMagicElements.ORDER);
 
-        registerBiomesTag(BiomeTags.HAS_CLOSER_WATER_FOG,TCMagicElements.ENTROPY);
+        registerBiomesTag(BiomeTags.HAS_CLOSER_WATER_FOG, ERMagicElements.CHAOS);
     }
 
 

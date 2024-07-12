@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-import net.ssorangecaty.elementreborn.element.TCMagicElements;
+import net.ssorangecaty.elementreborn.element.ERMagicElements;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -226,7 +226,7 @@ public class StorageElements {
     }
 
     public void reduceRootElements(float vis) {
-        for (MagicElement element : TCMagicElements.DEFAULT_ELEMENTS)
+        for (MagicElement element : ERMagicElements.DEFAULT_ELEMENTS)
             if (this.elements.containsKey(element))
                 this.elements.put(element, this.elements.get(element) - vis);
     }

@@ -2,7 +2,7 @@ package net.ssorangecaty.elementreborn.inventory.menu;
 
 import com.google.common.util.concurrent.AtomicDouble;
 import net.ssorangecaty.elementreborn.block.entity.ArcaneWorkBenchBlockEntity;
-import net.ssorangecaty.elementreborn.inventory.TCInventoryRegister;
+import net.ssorangecaty.elementreborn.inventory.ERInventoryRegister;
 import net.ssorangecaty.elementreborn.inventory.slot.OutputWithWandSlot;
 import net.ssorangecaty.elementreborn.inventory.slot.WandSlot;
 import net.minecraft.world.Container;
@@ -24,12 +24,12 @@ public class ArcaneWorkBenchMenu extends AbstractContainerMenu {
 
     public ArcaneWorkBenchMenu(int p_38963_, Inventory p_38964_
     ) {
-        this(TCInventoryRegister.ARCANE_WORKBENCH, p_38963_, p_38964_, new SimpleContainer(11), ContainerLevelAccess.NULL);
+        this(ERInventoryRegister.ARCANE_WORKBENCH, p_38963_, p_38964_, new SimpleContainer(11), ContainerLevelAccess.NULL);
     }
 
     public ArcaneWorkBenchMenu(int syncId, Inventory inventory, Container container, ContainerLevelAccess access
     ) {
-        this(TCInventoryRegister.ARCANE_WORKBENCH, syncId, inventory, container, access);
+        this(ERInventoryRegister.ARCANE_WORKBENCH, syncId, inventory, container, access);
     }
 
 

@@ -29,15 +29,15 @@ public class MagicElement {
     }
 
     public MagicElement(String name, int color, MagicElement... components) {
-        this(name, color, IResourceLocation.create("textures/aspects/" + name.toLowerCase(Locale.ROOT) + ".png"), 1, components);
+        this(name, color, IResourceLocation.create("textures/elements/" + name.toLowerCase(Locale.ROOT) + ".png"), 1, components);
     }
 
     public MagicElement(String name, int color, int blend, MagicElement... components) {
-        this(name, color, IResourceLocation.create("textures/aspects/" + name.toLowerCase(Locale.ROOT) + ".png"), blend, components);
+        this(name, color, IResourceLocation.create("textures/elements/" + name.toLowerCase(Locale.ROOT) + ".png"), blend, components);
     }
 
     public MagicElement(String name, int color, int blend) {
-        this(name, color, IResourceLocation.create("textures/aspects/" + name.toLowerCase(Locale.ROOT) + ".png"), blend);
+        this(name, color, IResourceLocation.create("textures/elements/" + name.toLowerCase(Locale.ROOT) + ".png"), blend);
     }
 
     public int getColor() {
@@ -49,7 +49,7 @@ public class MagicElement {
     }
 
     public Component getTranslationText() {
-        return Component.translatable("tc.aspect." + this.name).withColor(this.color);
+        return Component.translatable("er.element." + this.name).withColor(this.color);
     }
 
     public Iterable<MagicElement> getComponents() {

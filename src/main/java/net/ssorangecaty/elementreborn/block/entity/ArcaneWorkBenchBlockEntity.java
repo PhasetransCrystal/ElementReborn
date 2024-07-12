@@ -1,13 +1,13 @@
 package net.ssorangecaty.elementreborn.block.entity;
 
-import net.ssorangecaty.elementreborn.block.TCBlockEntityRegister;
+import net.ssorangecaty.elementreborn.block.ERBlockEntityRegister;
 import net.ssorangecaty.elementreborn.core.element.MagicElement;
 import net.ssorangecaty.elementreborn.core.element.StorageElements;
 import net.ssorangecaty.elementreborn.core.recipe.ArcaneWorkBenchRecipe;
 import net.ssorangecaty.elementreborn.core.recipe.TCRecipeRegister;
 import net.ssorangecaty.elementreborn.core.wands.WandRod;
-import net.ssorangecaty.elementreborn.data.TCDataComponentRegister;
-import net.ssorangecaty.elementreborn.element.TCMagicElements;
+import net.ssorangecaty.elementreborn.data.ERDataComponentRegister;
+import net.ssorangecaty.elementreborn.element.ERMagicElements;
 import net.ssorangecaty.elementreborn.inventory.menu.ArcaneWorkBenchMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -41,7 +41,7 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
     private boolean isDefaultCraftingRecipe = true;
 
     public ArcaneWorkBenchBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(TCBlockEntityRegister.ARCANE_WORKBENCH.get(), blockPos, blockState);
+        super(ERBlockEntityRegister.ARCANE_WORKBENCH.get(), blockPos, blockState);
     }
 
     @NotNull
@@ -177,7 +177,7 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
 
     public static boolean hasEnoughBaseElementVis(ItemStack stack, StorageElements storageElements, float value, Player player) {
         float vis = calculateVis(stack, value, player);
-        for (MagicElement magicElement : TCMagicElements.DEFAULT_ELEMENTS) {
+        for (MagicElement magicElement : ERMagicElements.DEFAULT_ELEMENTS) {
             if (storageElements.getOrDefault(magicElement) < vis)
                 return false;
         }
@@ -187,7 +187,7 @@ public class ArcaneWorkBenchBlockEntity extends BaseContainerBlockEntity impleme
     public boolean hasEnoughVis(Player player) {
         ItemStack stack = this.items.get(WAND_ROD_SLOT);
         if (stack.getItem() instanceof WandRod)
-            return hasEnoughBaseElementVis(stack, this.items.get(WAND_ROD_SLOT).get(TCDataComponentRegister.STORAGE_ELEMENTS), this.needCost, player);
+            return hasEnoughBaseElementVis(stack, this.items.get(WAND_ROD_SLOT).get(ERDataComponentRegister.STORAGE_ELEMENTS), this.needCost, player);
         return false;
     }
 

@@ -1,7 +1,7 @@
 package net.ssorangecaty.elementreborn.block.entity;
 
 import io.netty.buffer.ByteBuf;
-import net.ssorangecaty.elementreborn.block.TCBlockEntityRegister;
+import net.ssorangecaty.elementreborn.block.ERBlockEntityRegister;
 import net.ssorangecaty.elementreborn.core.element.ElementsRegistry;
 import net.ssorangecaty.elementreborn.core.element.MagicElement;
 import net.ssorangecaty.elementreborn.core.element.StorageElements;
@@ -10,7 +10,7 @@ import net.ssorangecaty.elementreborn.core.node.NodeManager;
 import net.ssorangecaty.elementreborn.core.node.NodeModifier;
 import net.ssorangecaty.elementreborn.core.node.NodeType;
 import net.ssorangecaty.elementreborn.core.wands.WandRod;
-import net.ssorangecaty.elementreborn.element.TCMagicElements;
+import net.ssorangecaty.elementreborn.element.ERMagicElements;
 import net.ssorangecaty.elementreborn.util.IResourceLocation;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.BlockPos;
@@ -45,7 +45,7 @@ public class NodeBlockEntity extends BlockEntity implements INode {
     private final StorageElements storage = new StorageElements(new HashMap<>());
 
     public NodeBlockEntity(BlockPos p_155229_, BlockState p_155230_) {
-        super(TCBlockEntityRegister.NODE.get(), p_155229_, p_155230_);
+        super(ERBlockEntityRegister.NODE.get(), p_155229_, p_155230_);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, NodeBlockEntity node) {
@@ -248,7 +248,7 @@ public class NodeBlockEntity extends BlockEntity implements INode {
                 for (int z = -3; z <= 3; z++) {
                     if (x == 0 && y == 0 && z == 0) continue;
                     if (level.getBlockState(pos.offset(x, y, z)).getBlock() == Blocks.LAVA) {
-                        storage.addElement(TCMagicElements.FIRE, random.nextInt(4, 48));
+                        storage.addElement(ERMagicElements.FIRE, random.nextInt(4, 48));
                         return storage;
                     }
                 }
