@@ -24,6 +24,6 @@ public class ElementsResourceManager implements ResourceManagerReloadListener {
             } catch (Exception e) {
                 ElementReborn.LOGGER.error("Error occurred while loading resource json {}", entry.getKey().toString(), e);
             }
-        ElementsManager.reload(objects);
+       /* ElementsManager.reload(objects);*/
     }
 }

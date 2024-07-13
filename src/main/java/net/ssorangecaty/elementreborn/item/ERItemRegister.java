@@ -28,6 +28,7 @@ public class ERItemRegister {
         return i;
     }
 
+
     public static class Builder {
         public final DeferredItem<Item> item;
         private Object2IntMap<ResourceLocation> elements = new Object2IntOpenHashMap<>();

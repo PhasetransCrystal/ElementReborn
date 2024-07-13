@@ -262,7 +262,7 @@ public class NodeBlockEntity extends BlockEntity implements INode {
     public StorageElements randomCompoundElements(RandomSource random) {
         int time = random.nextInt(0, 6);
         StorageElements storage = new StorageElements(new HashMap<>());
-        List<MagicElement> compoundElements = /*ElementsRegistry.getCompoundElements()*/ ElementsRegistry.getPrimalElements();
+        List<MagicElement> compoundElements = ElementsRegistry.getCompoundElements();
         for (int i = 0; i < time; i++) {
             int maxStorage = random.nextInt(10, 100);
             int index = random.nextInt(compoundElements.size());

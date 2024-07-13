@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 public class ElementsManager {
     public static final Map<String, MagicElement> ELEMENTS = new HashMap<>();
 
-    public static void reload(List<JsonObject> objects) {
+   /* public static void reload(List<JsonObject> objects) {
         ELEMENTS.clear();
         List<ElementHolder> holderMap = new ArrayList<>();
         for (JsonObject obj : objects)
@@ -27,9 +27,9 @@ public class ElementsManager {
                 ElementReborn.LOGGER.error("Failed to load {}", obj, e);
             }
         load(holderMap);
-    }
+    }*/
 
-    private static void load(List<ElementHolder> holderMap) {
+    /*private static void load(List<ElementHolder> holderMap) {
         Map<String, MemorizeSupplier<MagicElement>> supplierMap = new HashMap<>();
         for (ElementHolder holder : holderMap) supplierMap.put(holder.id, new MemorizeSupplier<>(null));
         for (ElementHolder holder : holderMap) {
@@ -38,7 +38,7 @@ public class ElementsManager {
         }
         for (Map.Entry<String, MemorizeSupplier<MagicElement>> entry : supplierMap.entrySet())
             ELEMENTS.put(entry.getKey(), entry.getValue().get());
-    }
+    }*/
 
 
     record ElementHolder(String id, int color, int blend, List<String> components, boolean loaded) {

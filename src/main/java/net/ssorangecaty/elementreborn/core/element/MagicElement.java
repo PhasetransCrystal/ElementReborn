@@ -16,28 +16,26 @@ import java.util.Locale;
 public class MagicElement {
     private final String name;
     private final ResourceLocation texture;
+    public static final ResourceLocation UNKNOWN = IResourceLocation.create("textures/elements/blank.png");
     private final int blend;
     private final int color;
     private final Iterable<MagicElement> components;
 
-    public MagicElement(String name, int color, ResourceLocation texture, int blend, MagicElement... components) {
+    public MagicElement(String name, int color, @Nullable ResourceLocation texture, int blend, MagicElement... components) {
         this.name = name;
         this.components = List.of(components);
         this.color = color;
-        this.texture = texture;
+        this.texture = texture == null ? UNKNOWN : texture;
         this.blend = blend;
     }
 
-    public MagicElement(String name, int color, MagicElement... components) {
-        this(name, color, IResourceLocation.create("textures/elements/" + name.toLowerCase(Locale.ROOT) + ".png"), 1, components);
+    public MagicElement(String name, int color, @Nullable ResourceLocation texture, MagicElement... components) {
+        this(name, color, texture == null ? UNKNOWN : texture, 1, components);
     }
 
-    public MagicElement(String name, int color, int blend, MagicElement... components) {
-        this(name, color, IResourceLocation.create("textures/elements/" + name.toLowerCase(Locale.ROOT) + ".png"), blend, components);
-    }
 
-    public MagicElement(String name, int color, int blend) {
-        this(name, color, IResourceLocation.create("textures/elements/" + name.toLowerCase(Locale.ROOT) + ".png"), blend);
+    public MagicElement(String name, int color, int blend ,@Nullable ResourceLocation texture) {
+        this(name, color, texture == null ? UNKNOWN : texture, blend);
     }
 
     public int getColor() {
