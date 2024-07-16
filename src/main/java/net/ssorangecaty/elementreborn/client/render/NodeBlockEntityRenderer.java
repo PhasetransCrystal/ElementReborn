@@ -57,7 +57,7 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
                         .setWriteMaskState(RenderType.COLOR_WRITE)
                         .setOverlayState(RenderType.OVERLAY)
                         .createCompositeState(false);
-                return RenderType.create("node", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, true, true, rendertype$compositestate);
+                return RenderType.create("node_side", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, true, true, rendertype$compositestate);
             }
     );
 
@@ -72,7 +72,7 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
                         .setWriteMaskState(RenderType.COLOR_WRITE)
                         .setOverlayState(RenderType.OVERLAY)
                         .createCompositeState(false);
-                return RenderType.create("node", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, true, true, rendertype$compositestate);
+                return RenderType.create("node_core", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, true, true, rendertype$compositestate);
             }
     );
 
