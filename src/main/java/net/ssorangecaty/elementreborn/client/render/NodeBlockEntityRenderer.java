@@ -88,11 +88,31 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
             if (distance > viewDistance) {
                 return;
             }
+            //TODO Helmet
+            condition = !player.getInventory().getArmor(3).isEmpty();
+
             float alpha = (float) ((viewDistance - distance) / viewDistance);
-            renderNode(poseStack, bufferSource, alpha, condition, size, node);
+            if (condition) {
+                renderNode(poseStack, bufferSource, alpha, condition, size, node);
+            }else {
+                renderLurkNode(poseStack, bufferSource);
+            }
+
         }
     }
 
+
+    public static void renderLurkNode(PoseStack poseStack, MultiBufferSource bufferSource) {
+        long nt = System.nanoTime();
+        long time = nt / 5000000;
+        int frame = (int) ((time / 8) % 32);
+        poseStack.pushPose();
+        poseStack.translate(0.5d, 0.5d, 0.5d);
+        Quaternionf rotation = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
+        poseStack.mulPose(rotation);
+        renderNodeCore(poseStack, bufferSource, frame,0.5F,false, 15, 1);
+        poseStack.popPose();
+    }
 
 
     public static void renderNode(PoseStack poseStack, MultiBufferSource bufferSource , float alpha, boolean visible, float size, NodeBlockEntity node) {
@@ -178,11 +198,11 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
         };
     }
     @Override
-    public boolean shouldRender(T p_173568_, Vec3 p_173569_) {
+    public boolean shouldRender(@NotNull T p_173568_, @NotNull Vec3 p_173569_) {
         return true; //Vec3.atCenterOf(p_173568_.getBlockPos()).closerThan(p_173569_, (double)this.getViewDistance());
     }
 
-    public boolean shouldRenderOffScreen(T p_112306_) {
+    public boolean shouldRenderOffScreen(@NotNull T p_112306_) {
         return true;
     }
 
