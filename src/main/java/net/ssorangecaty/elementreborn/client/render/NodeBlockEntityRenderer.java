@@ -115,13 +115,14 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
             float value = node.getStorage().getElementValue(elements.getFirst());
             float elementSize = 1.0F;
             int count = 1;
+            int fixedAlpha = (int) (alpha * modifier * 255);
             for (MagicElement element : elements) {
-                elementSize = count == 1 ? scale * value / totalValue : elementSize / count * 1.25F;
+               elementSize = count == 1 ? scale * value / totalValue : elementSize / count * 1.25F;
                coreScale = Math.min(coreScale, elementSize * 0.5F);
-               renderNodeSide(poseStack, bufferSource, frame, Math.min(2.5f, elementSize), element.getColor(), element.getBlend(), visible, (int) ((int) (alpha * modifier * 255) / count * 1.25F));
+               renderNodeSide(poseStack, bufferSource, frame, Math.min(2.5f, elementSize), element.getColor(), element.getBlend(), visible, (int) (fixedAlpha / count * 1.25F));
                count++;
             }
-            renderNodeCore(poseStack, bufferSource, frame, coreScale, visible, (int) ((alpha * modifier * 255)), getNodeCoreTextureY(type));
+            renderNodeCore(poseStack, bufferSource, frame, coreScale, visible, fixedAlpha, getNodeCoreTextureY(type));
         }
         poseStack.popPose();
     }
