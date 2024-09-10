@@ -34,20 +34,18 @@ public class SpItem extends ERItem {
                 if ((x < 4 && y >= 12) || (x >= 12 && y < 4)) {
                     color = 0xFF800080; // Purple
                 } else {
-                    color = 0xFF000000; // Black
+                    color = 0xFF800080; // Black
                 }
-                int alpha = 255;
-                setPixelDataByXY(tag,x, y, color, alpha);
+                setPixelDataByXY(tag,x, y, color);
             }
         }
         return tag;
     }
 
 
-    public static void setPixelDataByXY(CompoundTag tag, int x, int y, int color, int alpha) {
+    public static void setPixelDataByXY(CompoundTag tag, int x, int y, int color) {
         CompoundTag pixelTag = new CompoundTag();
         pixelTag.putInt("color", color);
-        pixelTag.putInt("alpha", alpha);
         String key = "pixel_" + x + "_" + y;
         tag.put(key, pixelTag);
     }

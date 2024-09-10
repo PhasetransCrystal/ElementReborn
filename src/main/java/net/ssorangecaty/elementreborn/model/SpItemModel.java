@@ -54,19 +54,8 @@ public class SpItemModel extends Model {
                 String key = "pixel_" + x + "_" + y;
                 if (pixelData.contains(key, Tag.TAG_COMPOUND)) {
                     CompoundTag pixelTag = pixelData.getCompound(key);
-                    int color = 0xFF000000; // 黑色
-                    int alpha = 255; // 不透明
-                    if (pixelTag.contains("color", Tag.TAG_INT)) {
-                        color = pixelTag.getInt("color");
-                    }
-                    if (pixelTag.contains("alpha", Tag.TAG_INT)) {
-                        alpha = pixelTag.getInt("alpha");
-                    }
-                    int r = (color >> 16) & 0xFF;
-                    int g = (color >> 8) & 0xFF;
-                    int b = color & 0xFF;
-                    int packedColor = (alpha << 24) | (r << 16) | (g << 8) | b;
-                    part.render(poseStack, vertexConsumer, light, overlay, packedColor);
+                    int color = pixelTag.getInt("color");
+                    part.render(poseStack, vertexConsumer, light, overlay, color);
                 }
             }
         }
@@ -102,7 +91,7 @@ public class SpItemModel extends Model {
                 0.0F, // UV偏移X
                 0.0F, // UV偏移Y
                 false,0,0,
-                Collections.singleton(Direction.UP)
+                EnumSet.allOf(Direction.class)
         );
     }
 
