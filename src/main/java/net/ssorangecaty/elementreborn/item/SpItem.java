@@ -2,7 +2,6 @@ package net.ssorangecaty.elementreborn.item;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.ssorangecaty.elementreborn.core.item.ERItem;

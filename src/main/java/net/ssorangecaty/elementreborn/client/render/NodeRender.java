@@ -1,5 +1,6 @@
 package net.ssorangecaty.elementreborn.client.render;
 
+import net.minecraft.client.model.ZombieModel;
 import net.ssorangecaty.elementreborn.block.entity.NodeBlockEntity;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;

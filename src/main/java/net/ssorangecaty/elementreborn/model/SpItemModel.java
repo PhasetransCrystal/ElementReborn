@@ -3,6 +3,7 @@ package net.ssorangecaty.elementreborn.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -10,27 +11,38 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.ssorangecaty.elementreborn.item.SpItem;
 
+import java.util.*;
+
 
 public class SpItemModel extends Model {
+    private static SpItemModel instance;
     final ModelPart[][] pixel;
     private CompoundTag pixelData = SpItem.generateNullPixelData();
-    public SpItemModel(ModelPart modelPart) {
+    public SpItemModel() {
         super(RenderType::entitySolid);
-        ModelPart[][] p = new ModelPart[15][15];
+        ModelPart inner = createPixelModelPart(0);
+        ModelPart[][] p = new ModelPart[16][16];
         for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 16; y++) {
                 String pixelName = "pixel_" + x + "_" + y;
-                p[x][y] = modelPart.getChild(pixelName);
+                p[x][y] = inner.getChild(pixelName);
             }
         }
         this.pixel = p;
+    }
 
+    public static SpItemModel getInstance(){
+        if (instance == null){
+            instance = new SpItemModel();
+        }
+        return instance;
     }
 
     public void setPixelData(ItemStack itemStack) {
@@ -66,25 +78,45 @@ public class SpItemModel extends Model {
         }
     }
 
-    public static MeshDefinition createPixelMesh(CubeDeformation p_170682_, float p_170683_) {
-        MeshDefinition meshdefinition = new MeshDefinition();
-        PartDefinition partdefinition = meshdefinition.getRoot();
-
-        // 遍历 16x16 的网格
+    public static ModelPart createPixelModelPart(float p_170683_) {
+        List<ModelPart.Cube> cubes = new ArrayList<>();
+        Map<String, ModelPart> children = new HashMap<>();
         for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 16; y++) {
                 String pixelName = "pixel_" + x + "_" + y;
-
-                // 创建每个像素的立方体
-                partdefinition.addOrReplaceChild(
-                        pixelName,
-                        CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, p_170682_),
-                        PartPose.offset(x - 8.0F, y - 8.0F + p_170683_, 0.0F)
-                );
+                cubes.add(createPixelCube(x - 8.0F, y - 8.0F + p_170683_));
+                ModelPart child = new ModelPart(List.of(createPixelCube(x - 8.0F, y - 8.0F + p_170683_)), new HashMap<>());
+                children.put(pixelName, child);
             }
         }
-
-        return meshdefinition;
+        return new ModelPart(cubes, children);
     }
+
+
+    private static ModelPart.Cube createPixelCube(float xOffset, float yOffset) {
+        float size = 1.0F;
+        float minX = 0.0F;
+        float minY = 0.0F;
+        float minZ = 0.0F;
+        float maxX = size;
+        float maxY = size;
+
+        minX += xOffset;
+        minY += yOffset;
+        maxX += xOffset;
+        maxY += yOffset;
+
+        return new ModelPart.Cube(
+                0, // Texture offset X
+                0, // Texture offset Y
+                minX, minY, minZ, // Min corner
+                maxX, maxY, size, // Max corner
+                size, size, size, // Dimensions
+                false, // Mirror
+                1.0F, 1.0F, // Texture scale
+                Collections.singleton(Direction.UP) // Face direction
+        );
+    }
+
 
 }
