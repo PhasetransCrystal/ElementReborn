@@ -101,7 +101,7 @@ public class SpItemModel extends Model {
                 0, // UV翻转标志
                 0.0F, // UV偏移X
                 0.0F, // UV偏移Y
-                false,1,1,
+                false,0,0,
                 Collections.singleton(Direction.UP)
         );
     }
