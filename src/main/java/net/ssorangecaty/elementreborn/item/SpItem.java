@@ -5,11 +5,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.ssorangecaty.elementreborn.core.item.ERItem;
 
-public class SpItem extends Item {
+public class SpItem extends ERItem {
 
-    public SpItem(Properties properties) {
-        super(properties.component(DataComponents.CUSTOM_DATA,CustomData.of(generateNullPixelData())));
+
+    public SpItem(ERProperties tcProperties) {
+        super(tcProperties);
     }
 
     public static void writePixelData(ItemStack itemStack, CompoundTag data) {

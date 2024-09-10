@@ -2,6 +2,7 @@ package net.ssorangecaty.elementreborn.item;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.world.item.component.CustomData;
 import net.ssorangecaty.elementreborn.ElementReborn;
 import net.ssorangecaty.elementreborn.ElementRebornTabs;
 import net.ssorangecaty.elementreborn.core.element.MagicElement;
@@ -21,6 +22,8 @@ public class ERItemRegister {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ElementReborn.MODID);
 
     public static final DeferredItem<Item> WAND = register("wand", () -> new WandRod(new ERItem.ERProperties.Builder(new Item.Properties().component(DataComponents.MAX_STACK_SIZE, 1)).build(), 50, 1.1f));
+    public static final DeferredItem<Item> SPITEM = register("sp_item", () -> new SpItem(new ERItem.ERProperties.Builder(new Item.Properties().component(DataComponents.CUSTOM_DATA, CustomData.of(SpItem.generateNullPixelData()))).build()));
+
 
     public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
         DeferredItem<T> i = ITEMS.register(name, item);
