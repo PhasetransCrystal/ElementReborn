@@ -66,9 +66,10 @@ public class SpItemModel extends Model {
         Map<String, ModelPart> children = new HashMap<>();
         for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 16; y++) {
+                ModelPart.Cube cube = createPixelCube(x, y ,0);
                 String pixelName = "pixel_" + x + "_" + y;
-                cubes.add(createPixelCube(x, y ,0));
-                ModelPart child = new ModelPart(List.of(createPixelCube(x,y,0)), new HashMap<>());
+                cubes.add(cube);
+                ModelPart child = new ModelPart(List.of(cube), new HashMap<>());
                 children.put(pixelName, child);
             }
         }
