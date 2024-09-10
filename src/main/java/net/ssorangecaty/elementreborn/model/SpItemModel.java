@@ -3,13 +3,7 @@ package net.ssorangecaty.elementreborn.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -27,7 +21,7 @@ public class SpItemModel extends Model {
     private CompoundTag pixelData = SpItem.generateNullPixelData();
     public SpItemModel() {
         super(RenderType::entitySolid);
-        ModelPart inner = createPixelModelPart(0);
+        ModelPart inner = createPixelModelPart();
         ModelPart[][] p = new ModelPart[16][16];
         for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 16; y++) {
@@ -78,14 +72,14 @@ public class SpItemModel extends Model {
         }
     }
 
-    public static ModelPart createPixelModelPart(float p_170683_) {
+    public static ModelPart createPixelModelPart() {
         List<ModelPart.Cube> cubes = new ArrayList<>();
         Map<String, ModelPart> children = new HashMap<>();
         for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 16; y++) {
                 String pixelName = "pixel_" + x + "_" + y;
-                cubes.add(createPixelCube(x - 8.0F, y - 8.0F + p_170683_));
-                ModelPart child = new ModelPart(List.of(createPixelCube(x - 8.0F, y - 8.0F + p_170683_)), new HashMap<>());
+                cubes.add(createPixelCube(x, y ,0));
+                ModelPart child = new ModelPart(List.of(createPixelCube(x,y,0)), new HashMap<>());
                 children.put(pixelName, child);
             }
         }
@@ -93,30 +87,23 @@ public class SpItemModel extends Model {
     }
 
 
-    private static ModelPart.Cube createPixelCube(float xOffset, float yOffset) {
+    private static ModelPart.Cube createPixelCube(float x, float y, float z) {
         float size = 1.0F;
-        float minX = 0.0F;
-        float minY = 0.0F;
-        float minZ = 0.0F;
-        float maxX = size;
-        float maxY = size;
-
-        minX += xOffset;
-        minY += yOffset;
-        maxX += xOffset;
-        maxY += yOffset;
-
         return new ModelPart.Cube(
-                0, // Texture offset X
-                0, // Texture offset Y
-                minX, minY, minZ, // Min corner
-                maxX, maxY, size, // Max corner
-                size, size, size, // Dimensions
-                false, // Mirror
-                1.0F, 1.0F, // Texture scale
-                Collections.singleton(Direction.UP) // Face direction
+                0, // 纹理坐标的起始X
+                0, // 纹理坐标的起始Y
+                x, // 立方体的最小X坐标
+                y, // 立方体的最小Y坐标
+                z, // 立方体的最小Z坐标
+                size, // X方向上的大小
+                size, // Y方向上的大小
+                size, // Z方向上的大小
+                0, // UV翻转标志
+                0.0F, // UV偏移X
+                0.0F, // UV偏移Y
+                false,1,1,
+                Collections.singleton(Direction.UP)
         );
     }
-
 
 }
