@@ -5,9 +5,11 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.world.item.ItemStack;
 import net.ssorangecaty.elementreborn.block.entity.NodeBlockEntity;
 import net.ssorangecaty.elementreborn.core.element.MagicElement;
 import net.ssorangecaty.elementreborn.core.node.NodeType;
+import net.ssorangecaty.elementreborn.core.node.ShowMagicElementAble;
 import net.ssorangecaty.elementreborn.util.IResourceLocation;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -88,7 +90,25 @@ public class NodeBlockEntityRenderer<T extends NodeBlockEntity> implements Block
                 return;
             }
             //TODO Helmet
-            condition = !player.getInventory().getArmor(3).isEmpty();
+            ItemStack head = player.getInventory().getArmor(3);
+            ItemStack mainHand = player.getMainHandItem();
+            ItemStack offHand = player.getOffhandItem();
+
+            boolean headFlag = false;
+            boolean mainHandFlag = false;
+            boolean offHandFlag = false;
+
+            if (mainHand.getItem() instanceof ShowMagicElementAble magicHead){
+                headFlag = magicHead.showNode();
+            }
+            if (head.getItem() instanceof ShowMagicElementAble magicHand){
+                mainHandFlag = magicHand.showNode();
+            }
+            if (offHand.getItem() instanceof ShowMagicElementAble magicHand){
+                offHandFlag = magicHand.showNode();
+            }
+
+            condition = headFlag || mainHandFlag || offHandFlag;
 
             float alpha = (float) ((viewDistance - distance) / viewDistance);
             if (condition) {

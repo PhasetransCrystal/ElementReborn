@@ -26,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class Node extends BaseEntityBlock {
-    private static final VoxelShape FALLING_COLLISION_SHAPE = Shapes.box(0.0, 0.0, 0.0, 1.0, 0.9F, 1.0);
     public static final MapCodec<Node> CODEC = simpleCodec((p) -> new Node());
     public Node() {
         super(Properties.of()

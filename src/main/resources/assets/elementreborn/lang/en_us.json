@@ -11,7 +11,6 @@
   "block.elementreborn.arcane_workbench": "Arcane Workbench",
   "block.elementreborn.deconstruction_table": "Deconstruction Table",
   "block.elementreborn.table": "Table",
-  "itemGroup.elementreborn": "elementreborn",
   "item.tooltips.shift_message": "Press shift to show more message.",
   "item.elementreborn.reduction.tooltip": "Elements cost :",
   "itemGroup.elementreborn": "Element Reborn"

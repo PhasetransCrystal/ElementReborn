@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 public class ERItemRegister {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ElementReborn.MODID);
 
-    public static final DeferredItem<Item> wand = register("wand", () -> new WandRod(new ERItem.ERProperties.Builder(new Item.Properties().component(DataComponents.MAX_STACK_SIZE, 1)).build(), 50, 1.1f));
+    public static final DeferredItem<Item> WAND = register("wand", () -> new WandRod(new ERItem.ERProperties.Builder(new Item.Properties().component(DataComponents.MAX_STACK_SIZE, 1)).build(), 50, 1.1f));
 
     public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
         DeferredItem<T> i = ITEMS.register(name, item);
