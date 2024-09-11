@@ -12,6 +12,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.ssorangecaty.elementreborn.item.SpItem;
 
+
 import java.util.*;
 
 
@@ -45,28 +46,12 @@ public class SpItemModel extends Model {
         }
     }
 
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int light, int overlay, int p_350308_) {
-        for (int x = 0; x < 16; x++) {
-            for (int y = 0; y < 16; y++) {
-                ModelPart part = pixel[x][y];
-                String key = "pixel_" + x + "_" + y;
-                if (pixelData.contains(key, Tag.TAG_COMPOUND)) {
-                    CompoundTag pixelTag = pixelData.getCompound(key);
-                    int color = pixelTag.getInt("color");
-                    part.render(poseStack, vertexConsumer, light, overlay, color);
-                }
-            }
-        }
-    }
-
     public static ModelPart createPixelModelPart() {
         List<ModelPart.Cube> cubes = new ArrayList<>();
         Map<String, ModelPart> children = new HashMap<>();
         for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 16; y++) {
-                ModelPart.Cube cube = createPixelCube(x, y ,0);
+                ModelPart.Cube cube = createPixelCube(x*0.5F, y*0.5F ,0);
                 String pixelName = "pixel_" + x + "_" + y;
                 cubes.add(cube);
                 ModelPart child = new ModelPart(List.of(cube), new HashMap<>());
@@ -78,10 +63,10 @@ public class SpItemModel extends Model {
 
 
     private static ModelPart.Cube createPixelCube(float x, float y, float z) {
-        float size = 1.0F;
+        float size = 0.5F;
         return new ModelPart.Cube(
-                0, // 纹理坐标的起始X
-                0, // 纹理坐标的起始Y
+                (int) x, // 纹理坐标的起始X
+                (int) y, // 纹理坐标的起始Y
                 x, // 立方体的最小X坐标
                 y, // 立方体的最小Y坐标
                 z, // 立方体的最小Z坐标
@@ -96,4 +81,22 @@ public class SpItemModel extends Model {
         );
     }
 
+    public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer) {
+        for (int x = 0; x < 16; x++) {
+            for (int y = 0; y < 16; y++) {
+                ModelPart part = pixel[x][y];
+                String key = "pixel_" + x + "_" + y;
+                if (pixelData.contains(key, Tag.TAG_COMPOUND)) {
+                    CompoundTag pixelTag = pixelData.getCompound(key);
+                    int color = pixelTag.getInt("color");
+                    part.render(matrixStack, buffer, 1,1, color);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void renderToBuffer(PoseStack p_103111_, VertexConsumer p_103112_, int p_103113_, int p_103114_, int p_350308_) {
+        renderToBuffer(p_103111_,p_103112_);
+    }
 }

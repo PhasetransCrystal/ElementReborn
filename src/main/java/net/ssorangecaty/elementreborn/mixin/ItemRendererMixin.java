@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.ssorangecaty.elementreborn.client.render.ERRenderSystem;
 import net.ssorangecaty.elementreborn.item.SpItem;
 import net.ssorangecaty.elementreborn.model.SpItemModel;
 import net.ssorangecaty.elementreborn.util.IResourceLocation;
@@ -19,6 +20,8 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 
 @Mixin(ItemRenderer.class)
 public class ItemRendererMixin {
@@ -54,7 +57,7 @@ public class ItemRendererMixin {
             if (stack.getItem() instanceof SpItem) {
                 SpItemModel model = SpItemModel.getInstance();
                 model.setPixelData(stack);
-                model.renderToBuffer(matrixStack, bufferSource.getBuffer(RenderType.entitySolid(IResourceLocation.create("textures/item/sp_item.png"))), light, overlay, 0);
+                model.renderToBuffer(matrixStack, bufferSource.getBuffer(ERRenderSystem.SpItemRenderType));
             }else{
                 BakedModel bakedModel = this.getModel(stack, level, entity, p_270845_);
                 this.render(stack, displayContext, leftHanded, matrixStack, bufferSource, light, overlay, bakedModel);

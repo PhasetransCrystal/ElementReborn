@@ -1,10 +1,14 @@
 package net.ssorangecaty.elementreborn.item;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.ssorangecaty.elementreborn.core.item.ERItem;
+import org.jetbrains.annotations.NotNull;
 
 public class SpItem extends ERItem {
 
@@ -49,4 +53,5 @@ public class SpItem extends ERItem {
         String key = "pixel_" + x + "_" + y;
         tag.put(key, pixelTag);
     }
+
 }
